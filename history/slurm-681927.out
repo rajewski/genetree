@@ -1,0 +1,4 @@
+perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
+perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
+
+Error, do not understand options: /rhome/arajewski/shared/genetree/trinityoutput/Fabiana
