@@ -1,0 +1,28 @@
+Left read files: $VAR1 = [
+          'sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz'
+        ];
+Right read files: $VAR1 = [
+          'sequencing/flowcell608_lane1_pair2_ACAGTG.fastq.gz'
+        ];
+Trinity version: Trinity-v2.4.0
+-currently using the latest production release of Trinity.
+
+Paired mode requires bowtie2. Found bowtie2 at: /opt/linux/centos/7.x/x86_64/pkgs/bowtie2/2.2.9/bin/bowtie2
+
+ and bowtie-build at /opt/linux/centos/7.x/x86_64/pkgs/bowtie2/2.2.9/bin/bowtie2-build
+
+
+-since butterfly will eventually be run, lets test for proper execution of java
+Found samtools at: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/BIN/samtools
+
+#######################################
+Running Java Tests
+Tuesday, May 2, 2017: 13:41:52	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 0
+CMD finished (0 seconds)
+Tuesday, May 2, 2017: 13:41:52	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 1
+-we properly captured the java failure status, as needed.  Looking good.
+Java tests succeeded.
+###################################
+
+Error, cannot locate file: sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Trinity line 2429.
+	main::create_full_path(ARRAY(0x14ab7c8), 1) called at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Trinity line 1159

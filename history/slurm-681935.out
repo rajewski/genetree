@@ -1,0 +1,17 @@
+Left read files: $VAR1 = [
+          'flowcell608_lane1_pair1_ACAGTG.fastq.gz'
+        ];
+Right read files: $VAR1 = [
+          'flowcell608_lane1_pair2_ACAGTG.fastq.gz'
+        ];
+Trinity version: Trinity-v2.4.0
+-currently using the latest production release of Trinity.
+
+Paired mode requires bowtie2. Found bowtie2 at: /opt/linux/centos/7.x/x86_64/pkgs/bowtie2/2.2.9/bin/bowtie2
+
+ and bowtie-build at /opt/linux/centos/7.x/x86_64/pkgs/bowtie2/2.2.9/bin/bowtie2-build
+
+
+Error, output directory must contain the word 'trinity' as a safety precaution, given that auto-deletion can take place.
+Found samtools at: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/BIN/samtools
+
