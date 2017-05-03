@@ -10,4 +10,4 @@ module unload perl
 module load perl/5.22.0
 module load trinity-rnaseq
 
-Trinity --seqType fq --max_memory 320G --bflyCalculateCPU --left reads1.fastq.gz --right reads2.fastq.gz --trimmomatic --SS_lib_type RF --CPU 16 --grid_node_max_memory 4G  --output /rhome/arajewski/shared/genetree/trinity_output_fabiana
+Trinity --seqType fq --max_memory 320G --bflyCalculateCPU --bflyHeapSpaceMax 12G --left reads1.fastq.gz --right reads2.fastq.gz --trimmomatic --SS_lib_type RF --CPU 16 --grid_node_max_memory 4G  --output /rhome/arajewski/shared/genetree/trinity_output_fabiana
