@@ -1,0 +1,442 @@
+perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
+perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
+
+ln: failed to create symbolic link 'reads1.fastq.gz': File exists
+ln: failed to create symbolic link 'reads2.fastq.gz': File exists
+Left read files: $VAR1 = [
+          'reads1.fastq.gz'
+        ];
+Right read files: $VAR1 = [
+          'reads2.fastq.gz'
+        ];
+Trinity version: Trinity-v2.4.0
+-currently using the latest production release of Trinity.
+
+Wednesday, May 3, 2017: 14:08:33	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 0
+Wednesday, May 3, 2017: 14:08:34	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 1
+
+
+----------------------------------------------------------------------------------
+-------------- Trinity Phase 1: Clustering of RNA-Seq Reads  ---------------------
+----------------------------------------------------------------------------------
+
+---------------------------------------------------------------
+------ Quality Trimming Via Trimmomatic  ---------------------
+<< ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25 >>
+---------------------------------------------------------------
+
+
+## Running Trimmomatic on read files: /bigdata/littlab/shared/genetree/analysis/reads1.fastq.gz, /bigdata/littlab/shared/genetree/analysis/reads2.fastq.gz
+###############################################################################
+#### Trimmomatic  process was previously completed. Skipping it and using existing qual-trimmed files: reads1.fastq.gz.PwU.qtrim.fq, reads2.fastq.gz.PwU.qtrim.fq
+###############################################################################
+---------------------------------------------------------------
+------------ In silico Read Normalization ---------------------
+-- (Removing Excess Reads Beyond 50 Coverage --
+---------------------------------------------------------------
+
+# running normalization on reads: $VAR1 = [
+          [
+            'reads1.fastq.gz.PwU.qtrim.fq'
+          ],
+          [
+            'reads2.fastq.gz.PwU.qtrim.fq'
+          ]
+        ];
+
+
+
+
+#######################################################################
+Inchworm file: /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa detected.
+Skipping Inchworm Step, Using Previous Inchworm Assembly
+#######################################################################
+
+--------------------------------------------------------
+-------------------- Chrysalis -------------------------
+-- (Contig Clustering & de Bruijn Graph Construction) --
+--------------------------------------------------------
+
+inchworm_target: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
+bowite_reads_fa: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
+chrysalis_reads_fa: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/filter_iworm_by_min_length_or_cov.pl /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa 100 10 > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100, checkpoint exists.
+-- Skipping CMD: bowtie2-build -o 3 /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 1>/dev/null, checkpoint exists.
+-- Skipping CMD: bash -c " set -o pipefail;bowtie2 --local -k 2 --threads 16 -f --score-min G,46,0 -x /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa  | samtools view -@ 16 -F4 -Sb - | samtools sort -m 10737418240 -@ 16 -no - - > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm.bowtie.nameSorted.bam" , checkpoint exists.
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/scaffold_iworm_contigs.pl /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm.bowtie.nameSorted.bam /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_scaffolds.txt, checkpoint exists.
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/GraphFromFasta -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa -r /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa -min_contig_length 200 -min_glue 2 -glue_factor 0.05 -min_iso_ratio 0.05 -t 16 -k 24 -kk 48  -strand  -scaffolding /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_scaffolds.txt  > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_cluster_welds_graph.txt, checkpoint exists.
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/BubbleUpClustering -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa  -weld_graph /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_cluster_welds_graph.txt -min_contig_length 200  > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/GraphFromIwormFasta.out, checkpoint exists.
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/CreateIwormFastaBundle -i /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/GraphFromIwormFasta.out -o /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/bundled_iworm_contigs.fasta -min 200, checkpoint exists.
+-- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/ReadsToTranscripts -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa -f /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/bundled_iworm_contigs.fasta -o /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out -t 16 -max_mem_reads 50000000  -strand , checkpoint exists.
+-- Skipping CMD: /usr/bin/sort --parallel=16 -T . -S 320G -k 1,1n /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out.sort, checkpoint exists.
+Wednesday, May 3, 2017: 14:08:36	CMD: mkdir -p read_partitions/Fb_0/CBin_0
+Wednesday, May 3, 2017: 14:08:37	CMD: mkdir -p read_partitions/Fb_0/CBin_1
+Wednesday, May 3, 2017: 14:08:37	CMD: mkdir -p read_partitions/Fb_0/CBin_2
+Wednesday, May 3, 2017: 14:08:37	CMD: mkdir -p read_partitions/Fb_0/CBin_3
+Wednesday, May 3, 2017: 14:08:38	CMD: mkdir -p read_partitions/Fb_0/CBin_4
+Wednesday, May 3, 2017: 14:08:38	CMD: mkdir -p read_partitions/Fb_0/CBin_5
+Wednesday, May 3, 2017: 14:08:38	CMD: mkdir -p read_partitions/Fb_0/CBin_6
+Wednesday, May 3, 2017: 14:08:38	CMD: mkdir -p read_partitions/Fb_0/CBin_7
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_8
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_9
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_10
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_11
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_12
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_13
+Wednesday, May 3, 2017: 14:08:39	CMD: mkdir -p read_partitions/Fb_0/CBin_14
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_15
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_16
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_17
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_18
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_19
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_20
+Wednesday, May 3, 2017: 14:08:40	CMD: mkdir -p read_partitions/Fb_0/CBin_21
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_22
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_23
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_24
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_25
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_26
+Wednesday, May 3, 2017: 14:08:41	CMD: mkdir -p read_partitions/Fb_0/CBin_27
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_28
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_29
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_30
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_31
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_32
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_33
+Wednesday, May 3, 2017: 14:08:42	CMD: mkdir -p read_partitions/Fb_0/CBin_34
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_35
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_36
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_37
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_38
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_39
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_40
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_41
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_42
+Wednesday, May 3, 2017: 14:08:43	CMD: mkdir -p read_partitions/Fb_0/CBin_43
+Wednesday, May 3, 2017: 14:08:44	CMD: mkdir -p read_partitions/Fb_0/CBin_44
+Wednesday, May 3, 2017: 14:08:47	CMD: mkdir -p read_partitions/Fb_0/CBin_45
+Wednesday, May 3, 2017: 14:08:47	CMD: mkdir -p read_partitions/Fb_0/CBin_46
+Wednesday, May 3, 2017: 14:08:47	CMD: mkdir -p read_partitions/Fb_0/CBin_47
+Wednesday, May 3, 2017: 14:08:48	CMD: mkdir -p read_partitions/Fb_0/CBin_48
+Wednesday, May 3, 2017: 14:08:48	CMD: mkdir -p read_partitions/Fb_0/CBin_49
+Wednesday, May 3, 2017: 14:08:48	CMD: mkdir -p read_partitions/Fb_0/CBin_50
+Wednesday, May 3, 2017: 14:08:48	CMD: mkdir -p read_partitions/Fb_0/CBin_51
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_52
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_53
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_54
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_55
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_56
+Wednesday, May 3, 2017: 14:08:49	CMD: mkdir -p read_partitions/Fb_0/CBin_57
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_58
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_59
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_60
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_61
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_62
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_63
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_64
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_65
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_66
+Wednesday, May 3, 2017: 14:08:50	CMD: mkdir -p read_partitions/Fb_0/CBin_67
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_68
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_69
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_70
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_71
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_72
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_73
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_74
+Wednesday, May 3, 2017: 14:08:51	CMD: mkdir -p read_partitions/Fb_0/CBin_75
+Wednesday, May 3, 2017: 14:08:52	CMD: mkdir -p read_partitions/Fb_0/CBin_76
+Wednesday, May 3, 2017: 14:08:52	CMD: mkdir -p read_partitions/Fb_0/CBin_77
+Wednesday, May 3, 2017: 14:08:52	CMD: mkdir -p read_partitions/Fb_0/CBin_78
+Wednesday, May 3, 2017: 14:08:52	CMD: mkdir -p read_partitions/Fb_0/CBin_79
+Wednesday, May 3, 2017: 14:08:52	CMD: mkdir -p read_partitions/Fb_0/CBin_80
+Wednesday, May 3, 2017: 14:08:53	CMD: mkdir -p read_partitions/Fb_0/CBin_81
+Wednesday, May 3, 2017: 14:08:53	CMD: mkdir -p read_partitions/Fb_0/CBin_82
+Wednesday, May 3, 2017: 14:08:53	CMD: mkdir -p read_partitions/Fb_0/CBin_83
+Wednesday, May 3, 2017: 14:08:53	CMD: mkdir -p read_partitions/Fb_0/CBin_84
+Wednesday, May 3, 2017: 14:08:57	CMD: mkdir -p read_partitions/Fb_0/CBin_85
+Wednesday, May 3, 2017: 14:08:57	CMD: mkdir -p read_partitions/Fb_0/CBin_86
+Wednesday, May 3, 2017: 14:08:57	CMD: mkdir -p read_partitions/Fb_0/CBin_87
+Wednesday, May 3, 2017: 14:08:58	CMD: mkdir -p read_partitions/Fb_0/CBin_88
+Wednesday, May 3, 2017: 14:08:58	CMD: mkdir -p read_partitions/Fb_0/CBin_89
+Wednesday, May 3, 2017: 14:08:58	CMD: mkdir -p read_partitions/Fb_0/CBin_90
+Wednesday, May 3, 2017: 14:08:58	CMD: mkdir -p read_partitions/Fb_0/CBin_91
+Wednesday, May 3, 2017: 14:08:58	CMD: mkdir -p read_partitions/Fb_0/CBin_92
+Wednesday, May 3, 2017: 14:08:59	CMD: mkdir -p read_partitions/Fb_0/CBin_93
+Wednesday, May 3, 2017: 14:08:59	CMD: mkdir -p read_partitions/Fb_0/CBin_94
+Wednesday, May 3, 2017: 14:08:59	CMD: mkdir -p read_partitions/Fb_0/CBin_95
+Wednesday, May 3, 2017: 14:08:59	CMD: mkdir -p read_partitions/Fb_0/CBin_96
+Wednesday, May 3, 2017: 14:08:59	CMD: mkdir -p read_partitions/Fb_0/CBin_97
+Wednesday, May 3, 2017: 14:09:00	CMD: mkdir -p read_partitions/Fb_0/CBin_98
+Wednesday, May 3, 2017: 14:09:00	CMD: mkdir -p read_partitions/Fb_0/CBin_99
+Wednesday, May 3, 2017: 14:09:01	CMD: mkdir -p read_partitions/Fb_0/CBin_100
+Wednesday, May 3, 2017: 14:09:01	CMD: mkdir -p read_partitions/Fb_0/CBin_101
+Wednesday, May 3, 2017: 14:09:01	CMD: mkdir -p read_partitions/Fb_0/CBin_102
+Wednesday, May 3, 2017: 14:09:01	CMD: mkdir -p read_partitions/Fb_0/CBin_103
+Wednesday, May 3, 2017: 14:09:01	CMD: mkdir -p read_partitions/Fb_0/CBin_104
+Wednesday, May 3, 2017: 14:09:02	CMD: mkdir -p read_partitions/Fb_0/CBin_105
+Wednesday, May 3, 2017: 14:09:02	CMD: mkdir -p read_partitions/Fb_0/CBin_106
+Wednesday, May 3, 2017: 14:09:02	CMD: mkdir -p read_partitions/Fb_0/CBin_107
+Wednesday, May 3, 2017: 14:09:02	CMD: mkdir -p read_partitions/Fb_0/CBin_108
+Wednesday, May 3, 2017: 14:09:03	CMD: mkdir -p read_partitions/Fb_0/CBin_109
+Wednesday, May 3, 2017: 14:09:03	CMD: mkdir -p read_partitions/Fb_0/CBin_110
+Wednesday, May 3, 2017: 14:09:03	CMD: mkdir -p read_partitions/Fb_0/CBin_111
+Wednesday, May 3, 2017: 14:09:03	CMD: mkdir -p read_partitions/Fb_0/CBin_112
+Wednesday, May 3, 2017: 14:09:03	CMD: mkdir -p read_partitions/Fb_0/CBin_113
+Wednesday, May 3, 2017: 14:09:04	CMD: mkdir -p read_partitions/Fb_0/CBin_114
+Wednesday, May 3, 2017: 14:09:04	CMD: mkdir -p read_partitions/Fb_0/CBin_115
+Wednesday, May 3, 2017: 14:09:04	CMD: mkdir -p read_partitions/Fb_0/CBin_116
+Wednesday, May 3, 2017: 14:09:04	CMD: mkdir -p read_partitions/Fb_0/CBin_117
+Wednesday, May 3, 2017: 14:09:05	CMD: mkdir -p read_partitions/Fb_0/CBin_118
+Wednesday, May 3, 2017: 14:09:05	CMD: mkdir -p read_partitions/Fb_0/CBin_119
+Wednesday, May 3, 2017: 14:09:05	CMD: mkdir -p read_partitions/Fb_0/CBin_120
+Wednesday, May 3, 2017: 14:09:06	CMD: mkdir -p read_partitions/Fb_0/CBin_121
+Wednesday, May 3, 2017: 14:09:06	CMD: mkdir -p read_partitions/Fb_0/CBin_122
+Wednesday, May 3, 2017: 14:09:06	CMD: mkdir -p read_partitions/Fb_0/CBin_123
+Wednesday, May 3, 2017: 14:09:07	CMD: mkdir -p read_partitions/Fb_0/CBin_124
+Wednesday, May 3, 2017: 14:09:07	CMD: mkdir -p read_partitions/Fb_0/CBin_125
+Wednesday, May 3, 2017: 14:09:12	CMD: mkdir -p read_partitions/Fb_0/CBin_126
+Wednesday, May 3, 2017: 14:09:12	CMD: mkdir -p read_partitions/Fb_0/CBin_127
+Wednesday, May 3, 2017: 14:09:12	CMD: mkdir -p read_partitions/Fb_0/CBin_128
+Wednesday, May 3, 2017: 14:09:12	CMD: mkdir -p read_partitions/Fb_0/CBin_129
+Wednesday, May 3, 2017: 14:09:13	CMD: mkdir -p read_partitions/Fb_0/CBin_130
+Wednesday, May 3, 2017: 14:09:13	CMD: mkdir -p read_partitions/Fb_0/CBin_131
+Wednesday, May 3, 2017: 14:09:13	CMD: mkdir -p read_partitions/Fb_0/CBin_132
+Wednesday, May 3, 2017: 14:09:13	CMD: mkdir -p read_partitions/Fb_0/CBin_133
+Wednesday, May 3, 2017: 14:09:13	CMD: mkdir -p read_partitions/Fb_0/CBin_134
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_135
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_136
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_137
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_138
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_139
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_140
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_141
+Wednesday, May 3, 2017: 14:09:14	CMD: mkdir -p read_partitions/Fb_0/CBin_142
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_143
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_144
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_145
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_146
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_147
+Wednesday, May 3, 2017: 14:09:15	CMD: mkdir -p read_partitions/Fb_0/CBin_148
+Wednesday, May 3, 2017: 14:09:16	CMD: mkdir -p read_partitions/Fb_0/CBin_149
+Wednesday, May 3, 2017: 14:09:16	CMD: mkdir -p read_partitions/Fb_0/CBin_150
+Wednesday, May 3, 2017: 14:09:16	CMD: mkdir -p read_partitions/Fb_0/CBin_151
+Wednesday, May 3, 2017: 14:09:17	CMD: mkdir -p read_partitions/Fb_0/CBin_152
+Wednesday, May 3, 2017: 14:09:18	CMD: mkdir -p read_partitions/Fb_0/CBin_153
+Wednesday, May 3, 2017: 14:09:19	CMD: mkdir -p read_partitions/Fb_0/CBin_154
+Wednesday, May 3, 2017: 14:09:19	CMD: mkdir -p read_partitions/Fb_0/CBin_155
+Wednesday, May 3, 2017: 14:09:20	CMD: mkdir -p read_partitions/Fb_0/CBin_156
+Wednesday, May 3, 2017: 14:09:21	CMD: mkdir -p read_partitions/Fb_0/CBin_157
+Wednesday, May 3, 2017: 14:09:21	CMD: mkdir -p read_partitions/Fb_0/CBin_158
+Wednesday, May 3, 2017: 14:09:22	CMD: mkdir -p read_partitions/Fb_0/CBin_159
+Wednesday, May 3, 2017: 14:09:23	CMD: mkdir -p read_partitions/Fb_0/CBin_160
+Wednesday, May 3, 2017: 14:09:23	CMD: mkdir -p read_partitions/Fb_0/CBin_161
+Wednesday, May 3, 2017: 14:09:24	CMD: mkdir -p read_partitions/Fb_0/CBin_162
+Wednesday, May 3, 2017: 14:09:25	CMD: mkdir -p read_partitions/Fb_0/CBin_163
+Wednesday, May 3, 2017: 14:09:25	CMD: mkdir -p read_partitions/Fb_0/CBin_164
+Wednesday, May 3, 2017: 14:09:26	CMD: mkdir -p read_partitions/Fb_0/CBin_165
+Wednesday, May 3, 2017: 14:09:26	CMD: mkdir -p read_partitions/Fb_0/CBin_166
+Wednesday, May 3, 2017: 14:09:27	CMD: mkdir -p read_partitions/Fb_0/CBin_167
+Wednesday, May 3, 2017: 14:09:28	CMD: mkdir -p read_partitions/Fb_0/CBin_168
+Wednesday, May 3, 2017: 14:09:28	CMD: mkdir -p read_partitions/Fb_0/CBin_169
+Wednesday, May 3, 2017: 14:09:29	CMD: mkdir -p read_partitions/Fb_0/CBin_170
+Wednesday, May 3, 2017: 14:09:30	CMD: mkdir -p read_partitions/Fb_0/CBin_171
+Wednesday, May 3, 2017: 14:09:33	CMD: mkdir -p read_partitions/Fb_0/CBin_172
+Wednesday, May 3, 2017: 14:09:34	CMD: mkdir -p read_partitions/Fb_0/CBin_173
+Wednesday, May 3, 2017: 14:09:35	CMD: mkdir -p read_partitions/Fb_0/CBin_174
+Wednesday, May 3, 2017: 14:09:37	CMD: mkdir -p read_partitions/Fb_0/CBin_175
+Wednesday, May 3, 2017: 14:09:38	CMD: mkdir -p read_partitions/Fb_0/CBin_176
+Wednesday, May 3, 2017: 14:09:39	CMD: mkdir -p read_partitions/Fb_0/CBin_177
+Wednesday, May 3, 2017: 14:09:40	CMD: mkdir -p read_partitions/Fb_0/CBin_178
+Wednesday, May 3, 2017: 14:09:41	CMD: mkdir -p read_partitions/Fb_0/CBin_179
+Wednesday, May 3, 2017: 14:09:42	CMD: mkdir -p read_partitions/Fb_0/CBin_180
+Wednesday, May 3, 2017: 14:09:43	CMD: mkdir -p read_partitions/Fb_0/CBin_181
+Wednesday, May 3, 2017: 14:09:45	CMD: mkdir -p read_partitions/Fb_0/CBin_182
+Wednesday, May 3, 2017: 14:09:47	CMD: mkdir -p read_partitions/Fb_0/CBin_183
+Wednesday, May 3, 2017: 14:09:48	CMD: mkdir -p read_partitions/Fb_0/CBin_184
+Wednesday, May 3, 2017: 14:09:50	CMD: mkdir -p read_partitions/Fb_0/CBin_185
+Wednesday, May 3, 2017: 14:09:52	CMD: mkdir -p read_partitions/Fb_0/CBin_186
+Wednesday, May 3, 2017: 14:09:54	CMD: mkdir -p read_partitions/Fb_0/CBin_187
+Wednesday, May 3, 2017: 14:09:55	CMD: mkdir -p read_partitions/Fb_0/CBin_188
+Wednesday, May 3, 2017: 14:09:57	CMD: mkdir -p read_partitions/Fb_0/CBin_189
+Wednesday, May 3, 2017: 14:09:58	CMD: mkdir -p read_partitions/Fb_0/CBin_190
+Wednesday, May 3, 2017: 14:10:00	CMD: mkdir -p read_partitions/Fb_0/CBin_191
+Wednesday, May 3, 2017: 14:10:01	CMD: mkdir -p read_partitions/Fb_0/CBin_192
+Wednesday, May 3, 2017: 14:10:02	CMD: mkdir -p read_partitions/Fb_0/CBin_193
+Wednesday, May 3, 2017: 14:10:04	CMD: mkdir -p read_partitions/Fb_0/CBin_194
+Wednesday, May 3, 2017: 14:10:05	CMD: mkdir -p read_partitions/Fb_0/CBin_195
+Wednesday, May 3, 2017: 14:10:06	CMD: mkdir -p read_partitions/Fb_0/CBin_196
+Wednesday, May 3, 2017: 14:10:08	CMD: mkdir -p read_partitions/Fb_0/CBin_197
+Wednesday, May 3, 2017: 14:10:10	CMD: mkdir -p read_partitions/Fb_0/CBin_198
+Wednesday, May 3, 2017: 14:10:11	CMD: mkdir -p read_partitions/Fb_0/CBin_199
+Wednesday, May 3, 2017: 14:10:12	CMD: mkdir -p read_partitions/Fb_0/CBin_200
+Wednesday, May 3, 2017: 14:10:13	CMD: mkdir -p read_partitions/Fb_0/CBin_201
+Wednesday, May 3, 2017: 14:10:15	CMD: mkdir -p read_partitions/Fb_0/CBin_202
+Wednesday, May 3, 2017: 14:10:15	CMD: mkdir -p read_partitions/Fb_0/CBin_203
+Wednesday, May 3, 2017: 14:10:16	CMD: mkdir -p read_partitions/Fb_0/CBin_204
+Wednesday, May 3, 2017: 14:10:17	CMD: mkdir -p read_partitions/Fb_0/CBin_205
+Wednesday, May 3, 2017: 14:10:18	CMD: mkdir -p read_partitions/Fb_0/CBin_206
+Wednesday, May 3, 2017: 14:10:19	CMD: mkdir -p read_partitions/Fb_0/CBin_207
+Wednesday, May 3, 2017: 14:10:21	CMD: mkdir -p read_partitions/Fb_0/CBin_208
+Wednesday, May 3, 2017: 14:10:22	CMD: mkdir -p read_partitions/Fb_0/CBin_209
+Wednesday, May 3, 2017: 14:10:24	CMD: mkdir -p read_partitions/Fb_0/CBin_210
+Wednesday, May 3, 2017: 14:10:26	CMD: mkdir -p read_partitions/Fb_0/CBin_211
+Wednesday, May 3, 2017: 14:10:28	CMD: mkdir -p read_partitions/Fb_0/CBin_212
+Wednesday, May 3, 2017: 14:10:29	CMD: mkdir -p read_partitions/Fb_0/CBin_213
+Wednesday, May 3, 2017: 14:10:31	CMD: mkdir -p read_partitions/Fb_0/CBin_214
+Wednesday, May 3, 2017: 14:10:33	CMD: mkdir -p read_partitions/Fb_0/CBin_215
+Wednesday, May 3, 2017: 14:10:35	CMD: mkdir -p read_partitions/Fb_0/CBin_216
+Wednesday, May 3, 2017: 14:10:37	CMD: mkdir -p read_partitions/Fb_0/CBin_217
+Wednesday, May 3, 2017: 14:10:40	CMD: mkdir -p read_partitions/Fb_0/CBin_218
+Wednesday, May 3, 2017: 14:10:42	CMD: mkdir -p read_partitions/Fb_0/CBin_219
+Wednesday, May 3, 2017: 14:10:43	CMD: mkdir -p read_partitions/Fb_0/CBin_220
+Wednesday, May 3, 2017: 14:10:45	CMD: mkdir -p read_partitions/Fb_0/CBin_221
+Wednesday, May 3, 2017: 14:10:47	CMD: mkdir -p read_partitions/Fb_0/CBin_222
+Wednesday, May 3, 2017: 14:10:50	CMD: mkdir -p read_partitions/Fb_0/CBin_223
+Wednesday, May 3, 2017: 14:10:53	CMD: mkdir -p read_partitions/Fb_0/CBin_224
+Wednesday, May 3, 2017: 14:10:56	CMD: mkdir -p read_partitions/Fb_0/CBin_225
+Wednesday, May 3, 2017: 14:10:58	CMD: mkdir -p read_partitions/Fb_0/CBin_226
+Wednesday, May 3, 2017: 14:11:01	CMD: mkdir -p read_partitions/Fb_0/CBin_227
+Wednesday, May 3, 2017: 14:11:05	CMD: mkdir -p read_partitions/Fb_0/CBin_228
+Wednesday, May 3, 2017: 14:11:07	CMD: mkdir -p read_partitions/Fb_0/CBin_229
+Wednesday, May 3, 2017: 14:11:09	CMD: mkdir -p read_partitions/Fb_0/CBin_230
+Wednesday, May 3, 2017: 14:11:13	CMD: mkdir -p read_partitions/Fb_0/CBin_231
+Wednesday, May 3, 2017: 14:11:15	CMD: mkdir -p read_partitions/Fb_0/CBin_232
+Wednesday, May 3, 2017: 14:11:17	CMD: mkdir -p read_partitions/Fb_0/CBin_233
+Wednesday, May 3, 2017: 14:11:19	CMD: mkdir -p read_partitions/Fb_0/CBin_234
+Wednesday, May 3, 2017: 14:11:23	CMD: mkdir -p read_partitions/Fb_0/CBin_235
+Wednesday, May 3, 2017: 14:11:25	CMD: mkdir -p read_partitions/Fb_0/CBin_236
+Wednesday, May 3, 2017: 14:11:28	CMD: mkdir -p read_partitions/Fb_0/CBin_237
+Wednesday, May 3, 2017: 14:11:30	CMD: mkdir -p read_partitions/Fb_0/CBin_238
+Wednesday, May 3, 2017: 14:11:33	CMD: mkdir -p read_partitions/Fb_0/CBin_239
+Wednesday, May 3, 2017: 14:11:37	CMD: mkdir -p read_partitions/Fb_0/CBin_240
+Wednesday, May 3, 2017: 14:11:40	CMD: mkdir -p read_partitions/Fb_0/CBin_241
+Wednesday, May 3, 2017: 14:11:43	CMD: mkdir -p read_partitions/Fb_0/CBin_242
+Wednesday, May 3, 2017: 14:11:44	CMD: mkdir -p read_partitions/Fb_0/CBin_243
+Wednesday, May 3, 2017: 14:11:46	CMD: mkdir -p read_partitions/Fb_0/CBin_244
+Wednesday, May 3, 2017: 14:11:49	CMD: mkdir -p read_partitions/Fb_0/CBin_245
+Wednesday, May 3, 2017: 14:11:51	CMD: mkdir -p read_partitions/Fb_0/CBin_246
+Wednesday, May 3, 2017: 14:11:54	CMD: mkdir -p read_partitions/Fb_0/CBin_247
+Wednesday, May 3, 2017: 14:11:57	CMD: mkdir -p read_partitions/Fb_0/CBin_248
+Wednesday, May 3, 2017: 14:12:01	CMD: mkdir -p read_partitions/Fb_0/CBin_249
+Wednesday, May 3, 2017: 14:12:04	CMD: mkdir -p read_partitions/Fb_0/CBin_250
+Wednesday, May 3, 2017: 14:12:06	CMD: mkdir -p read_partitions/Fb_0/CBin_251
+Wednesday, May 3, 2017: 14:12:10	CMD: mkdir -p read_partitions/Fb_0/CBin_252
+Wednesday, May 3, 2017: 14:12:13	CMD: mkdir -p read_partitions/Fb_0/CBin_253
+Wednesday, May 3, 2017: 14:12:17	CMD: mkdir -p read_partitions/Fb_0/CBin_254
+Wednesday, May 3, 2017: 14:12:23	CMD: mkdir -p read_partitions/Fb_0/CBin_255
+Wednesday, May 3, 2017: 14:12:26	CMD: mkdir -p read_partitions/Fb_0/CBin_256
+Wednesday, May 3, 2017: 14:12:28	CMD: mkdir -p read_partitions/Fb_0/CBin_257
+Wednesday, May 3, 2017: 14:12:32	CMD: mkdir -p read_partitions/Fb_0/CBin_258
+Wednesday, May 3, 2017: 14:12:35	CMD: mkdir -p read_partitions/Fb_0/CBin_259
+Wednesday, May 3, 2017: 14:12:38	CMD: mkdir -p read_partitions/Fb_0/CBin_260
+Wednesday, May 3, 2017: 14:12:43	CMD: mkdir -p read_partitions/Fb_0/CBin_261
+Wednesday, May 3, 2017: 14:12:49	CMD: mkdir -p read_partitions/Fb_0/CBin_262
+Wednesday, May 3, 2017: 14:12:52	CMD: mkdir -p read_partitions/Fb_0/CBin_263
+Wednesday, May 3, 2017: 14:12:54	CMD: mkdir -p read_partitions/Fb_0/CBin_264
+Wednesday, May 3, 2017: 14:13:00	CMD: mkdir -p read_partitions/Fb_0/CBin_265
+Wednesday, May 3, 2017: 14:13:06	CMD: mkdir -p read_partitions/Fb_0/CBin_266
+Wednesday, May 3, 2017: 14:13:12	CMD: mkdir -p read_partitions/Fb_0/CBin_267
+Wednesday, May 3, 2017: 14:13:19	CMD: mkdir -p read_partitions/Fb_0/CBin_268
+Wednesday, May 3, 2017: 14:13:25	CMD: mkdir -p read_partitions/Fb_0/CBin_269
+Wednesday, May 3, 2017: 14:13:31	CMD: mkdir -p read_partitions/Fb_0/CBin_270
+Wednesday, May 3, 2017: 14:13:38	CMD: mkdir -p read_partitions/Fb_0/CBin_271
+Wednesday, May 3, 2017: 14:13:45	CMD: mkdir -p read_partitions/Fb_0/CBin_272
+Wednesday, May 3, 2017: 14:13:52	CMD: mkdir -p read_partitions/Fb_0/CBin_273
+Wednesday, May 3, 2017: 14:13:57	CMD: mkdir -p read_partitions/Fb_0/CBin_274
+Wednesday, May 3, 2017: 14:14:00	CMD: mkdir -p read_partitions/Fb_0/CBin_275
+Wednesday, May 3, 2017: 14:14:05	CMD: mkdir -p read_partitions/Fb_0/CBin_276
+Wednesday, May 3, 2017: 14:14:07	CMD: mkdir -p read_partitions/Fb_0/CBin_277
+Wednesday, May 3, 2017: 14:14:08	CMD: mkdir -p read_partitions/Fb_0/CBin_278
+Wednesday, May 3, 2017: 14:14:08	CMD: mkdir -p read_partitions/Fb_0/CBin_279
+Wednesday, May 3, 2017: 14:14:08	CMD: mkdir -p read_partitions/Fb_0/CBin_280
+Wednesday, May 3, 2017: 14:14:08	CMD: mkdir -p read_partitions/Fb_0/CBin_281
+Wednesday, May 3, 2017: 14:14:09	CMD: mkdir -p read_partitions/Fb_0/CBin_282
+Wednesday, May 3, 2017: 14:14:09	CMD: mkdir -p read_partitions/Fb_0/CBin_283
+Wednesday, May 3, 2017: 14:14:09	CMD: mkdir -p read_partitions/Fb_0/CBin_284
+Wednesday, May 3, 2017: 14:14:09	CMD: mkdir -p read_partitions/Fb_0/CBin_285
+Wednesday, May 3, 2017: 14:14:09	CMD: mkdir -p read_partitions/Fb_0/CBin_286
+Wednesday, May 3, 2017: 14:14:10	CMD: mkdir -p read_partitions/Fb_0/CBin_287
+Wednesday, May 3, 2017: 14:14:10	CMD: mkdir -p read_partitions/Fb_0/CBin_288
+Wednesday, May 3, 2017: 14:14:10	CMD: mkdir -p read_partitions/Fb_0/CBin_289
+Wednesday, May 3, 2017: 14:14:10	CMD: mkdir -p read_partitions/Fb_0/CBin_290
+Wednesday, May 3, 2017: 14:14:11	CMD: mkdir -p read_partitions/Fb_0/CBin_291
+Wednesday, May 3, 2017: 14:14:11	CMD: mkdir -p read_partitions/Fb_0/CBin_292
+Wednesday, May 3, 2017: 14:14:11	CMD: mkdir -p read_partitions/Fb_0/CBin_293
+Wednesday, May 3, 2017: 14:14:19	CMD: mkdir -p read_partitions/Fb_0/CBin_294
+Wednesday, May 3, 2017: 14:14:29	CMD: mkdir -p read_partitions/Fb_0/CBin_295
+Wednesday, May 3, 2017: 14:14:38	CMD: mkdir -p read_partitions/Fb_0/CBin_296
+Wednesday, May 3, 2017: 14:15:02	CMD: mkdir -p read_partitions/Fb_0/CBin_297
+Wednesday, May 3, 2017: 14:15:07	CMD: mkdir -p read_partitions/Fb_0/CBin_298
+Wednesday, May 3, 2017: 14:15:16	CMD: mkdir -p read_partitions/Fb_0/CBin_299
+Wednesday, May 3, 2017: 14:15:26	CMD: mkdir -p read_partitions/Fb_0/CBin_300
+Wednesday, May 3, 2017: 14:15:31	CMD: mkdir -p read_partitions/Fb_0/CBin_301
+Wednesday, May 3, 2017: 14:15:36	CMD: mkdir -p read_partitions/Fb_0/CBin_302
+Wednesday, May 3, 2017: 14:15:45	CMD: mkdir -p read_partitions/Fb_0/CBin_303
+Wednesday, May 3, 2017: 14:15:55	CMD: mkdir -p read_partitions/Fb_0/CBin_304
+Wednesday, May 3, 2017: 14:16:00	CMD: mkdir -p read_partitions/Fb_0/CBin_305
+Wednesday, May 3, 2017: 14:16:04	CMD: mkdir -p read_partitions/Fb_0/CBin_306
+Wednesday, May 3, 2017: 14:16:09	CMD: mkdir -p read_partitions/Fb_0/CBin_307
+Wednesday, May 3, 2017: 14:16:14	CMD: mkdir -p read_partitions/Fb_0/CBin_308
+Wednesday, May 3, 2017: 14:16:19	CMD: mkdir -p read_partitions/Fb_0/CBin_309
+Wednesday, May 3, 2017: 14:16:28	CMD: mkdir -p read_partitions/Fb_0/CBin_310
+Wednesday, May 3, 2017: 14:16:38	CMD: mkdir -p read_partitions/Fb_0/CBin_311
+Wednesday, May 3, 2017: 14:16:43	CMD: mkdir -p read_partitions/Fb_0/CBin_312
+Wednesday, May 3, 2017: 14:16:48	CMD: mkdir -p read_partitions/Fb_0/CBin_313
+Wednesday, May 3, 2017: 14:16:57	CMD: mkdir -p read_partitions/Fb_0/CBin_314
+Wednesday, May 3, 2017: 14:17:02	CMD: mkdir -p read_partitions/Fb_0/CBin_315
+Wednesday, May 3, 2017: 14:17:07	CMD: mkdir -p read_partitions/Fb_0/CBin_316
+Wednesday, May 3, 2017: 14:17:12	CMD: mkdir -p read_partitions/Fb_0/CBin_317
+Wednesday, May 3, 2017: 14:17:16	CMD: mkdir -p read_partitions/Fb_0/CBin_318
+Wednesday, May 3, 2017: 14:17:21	CMD: mkdir -p read_partitions/Fb_0/CBin_319
+Wednesday, May 3, 2017: 14:17:31	CMD: mkdir -p read_partitions/Fb_0/CBin_320
+Wednesday, May 3, 2017: 14:17:36	CMD: mkdir -p read_partitions/Fb_0/CBin_321
+Wednesday, May 3, 2017: 14:17:45	CMD: mkdir -p read_partitions/Fb_0/CBin_322
+Wednesday, May 3, 2017: 14:17:50	CMD: mkdir -p read_partitions/Fb_0/CBin_323
+Wednesday, May 3, 2017: 14:18:00	CMD: mkdir -p read_partitions/Fb_0/CBin_324
+Wednesday, May 3, 2017: 14:18:04	CMD: mkdir -p read_partitions/Fb_0/CBin_325
+Wednesday, May 3, 2017: 14:18:09	CMD: mkdir -p read_partitions/Fb_0/CBin_326
+Wednesday, May 3, 2017: 14:18:23	CMD: mkdir -p read_partitions/Fb_0/CBin_327
+Wednesday, May 3, 2017: 14:18:38	CMD: mkdir -p read_partitions/Fb_0/CBin_328
+Wednesday, May 3, 2017: 14:18:52	CMD: mkdir -p read_partitions/Fb_0/CBin_329
+Wednesday, May 3, 2017: 14:19:02	CMD: mkdir -p read_partitions/Fb_0/CBin_330
+Wednesday, May 3, 2017: 14:19:11	CMD: mkdir -p read_partitions/Fb_0/CBin_331
+Wednesday, May 3, 2017: 14:19:16	CMD: mkdir -p read_partitions/Fb_0/CBin_332
+Wednesday, May 3, 2017: 14:19:21	CMD: mkdir -p read_partitions/Fb_0/CBin_333
+Wednesday, May 3, 2017: 14:19:26	CMD: mkdir -p read_partitions/Fb_0/CBin_334
+Wednesday, May 3, 2017: 14:19:45	CMD: mkdir -p read_partitions/Fb_0/CBin_335
+Wednesday, May 3, 2017: 14:19:55	CMD: mkdir -p read_partitions/Fb_0/CBin_336
+Wednesday, May 3, 2017: 14:20:04	CMD: mkdir -p read_partitions/Fb_0/CBin_337
+Wednesday, May 3, 2017: 14:20:09	CMD: mkdir -p read_partitions/Fb_0/CBin_338
+Wednesday, May 3, 2017: 14:20:18	CMD: mkdir -p read_partitions/Fb_0/CBin_339
+Wednesday, May 3, 2017: 14:20:23	CMD: mkdir -p read_partitions/Fb_0/CBin_340
+Wednesday, May 3, 2017: 14:20:38	CMD: mkdir -p read_partitions/Fb_0/CBin_341
+Wednesday, May 3, 2017: 14:20:47	CMD: mkdir -p read_partitions/Fb_0/CBin_342
+Wednesday, May 3, 2017: 14:20:57	CMD: mkdir -p read_partitions/Fb_0/CBin_343
+Wednesday, May 3, 2017: 14:21:06	CMD: mkdir -p read_partitions/Fb_0/CBin_344
+Wednesday, May 3, 2017: 14:21:16	CMD: mkdir -p read_partitions/Fb_0/CBin_345
+Wednesday, May 3, 2017: 14:21:26	CMD: mkdir -p read_partitions/Fb_0/CBin_346
+Wednesday, May 3, 2017: 14:21:30	CMD: mkdir -p read_partitions/Fb_0/CBin_347
+Wednesday, May 3, 2017: 14:21:40	CMD: mkdir -p read_partitions/Fb_0/CBin_348
+Wednesday, May 3, 2017: 14:21:45	CMD: mkdir -p read_partitions/Fb_0/CBin_349
+Wednesday, May 3, 2017: 14:21:54	CMD: mkdir -p read_partitions/Fb_0/CBin_350
+Wednesday, May 3, 2017: 14:22:04	CMD: mkdir -p read_partitions/Fb_0/CBin_351
+Wednesday, May 3, 2017: 14:22:14	CMD: mkdir -p read_partitions/Fb_0/CBin_352
+Wednesday, May 3, 2017: 14:22:23	CMD: mkdir -p read_partitions/Fb_0/CBin_353
+Wednesday, May 3, 2017: 14:22:33	CMD: mkdir -p read_partitions/Fb_0/CBin_354
+Wednesday, May 3, 2017: 14:22:42	CMD: mkdir -p read_partitions/Fb_0/CBin_355
+Wednesday, May 3, 2017: 14:22:52	CMD: mkdir -p read_partitions/Fb_0/CBin_356
+Wednesday, May 3, 2017: 14:22:57	CMD: mkdir -p read_partitions/Fb_0/CBin_357
+Wednesday, May 3, 2017: 14:23:01	CMD: touch partitioned_reads.files.list.ok
+Wednesday, May 3, 2017: 14:23:02	CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/write_partitioned_trinity_cmds.pl --reads_list_file partitioned_reads.files.list --CPU 1 --max_memory 1G  --run_as_paired  --SS_lib_type F  --seqType fa --trinity_complete --full_cleanup  --bflyCalculateCPU  --bflyHeapSpaceMax  12G  > recursive_trinity.cmds
+Wednesday, May 3, 2017: 14:23:03	CMD: touch recursive_trinity.cmds.ok
+Wednesday, May 3, 2017: 14:23:03	CMD: touch recursive_trinity.cmds.ok
+
+
+--------------------------------------------------------------------------------
+------------ Trinity Phase 2: Assembling Clusters of Reads ---------------------
+--------------------------------------------------------------------------------
+
+Wednesday, May 3, 2017: 14:23:03	CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/parafly/bin/ParaFly -c recursive_trinity.cmds -CPU 16 -v 
+Number of Commands: 35774
+succeeded(1)   0.00279533% completed.    succeeded(2)   0.00559065% completed.    succeeded(3)   0.00838598% completed.    succeeded(4)   0.0111813% completed.    succeeded(5)   0.0139766% completed.    succeeded(6)   0.016772% completed.    succeeded(7)   0.0195673% completed.    succeeded(8)   0.0223626% completed.    succeeded(9)   0.0251579% completed.    succeeded(10)   0.0279533% completed.    succeeded(11)   0.0307486% completed.    succeeded(12)   0.0335439% completed.    succeeded(13)   0.0363392% completed.    succeeded(14)   0.0391346% completed.    succeeded(15)   0.0419299% completed.    succeeded(16)   0.0447252% completed.    succeeded(17)   0.0475205% completed.    succeeded(18)   0.0503159% completed.    succeeded(19)   0.0531112% completed.    succeeded(20)   0.0559065% completed.    succeeded(21)   0.0587019% completed.    succeeded(22)   0.0614972% completed.    succeeded(23)   0.0642925% completed.    succeeded(24)   0.0670878% completed.    succeeded(25)   0.0698832% completed.    succeeded(26)   0.0726785% completed.    succeeded(27)   0.0754738% completed.    succeeded(28)   0.0782691% completed.    succeeded(29)   0.0810645% completed.    succeeded(30)   0.0838598% completed.    succeeded(31)   0.0866551% completed.    succeeded(32)   0.0894504% completed.    succeeded(33)   0.0922458% completed.    succeeded(34)   0.0950411% completed.    succeeded(35)   0.0978364% completed.    succeeded(36)   0.100632% completed.    succeeded(37)   0.103427% completed.    succeeded(38)   0.106222% completed.    succeeded(39)   0.109018% completed.    succeeded(40)   0.111813% completed.    succeeded(41)   0.114608% completed.    succeeded(42)   0.117404% completed.    succeeded(43)   0.120199% completed.    succeeded(44)   0.122994% completed.    succeeded(45)   0.12579% completed.    succeeded(46)   0.128585% completed.    succeeded(47)   0.13138% completed.    succeeded(48)   0.134176% completed.    succeeded(49)   0.136971% completed.    succeeded(50)   0.139766% completed.    succeeded(51)   0.142562% completed.    succeeded(52)   0.145357% completed.    succeeded(53)   0.148152% completed.    succeeded(54)   0.150948% completed.    succeeded(55)   0.153743% completed.    succeeded(56)   0.156538% completed.    succeeded(57)   0.159334% completed.    succeeded(58)   0.162129% completed.    succeeded(59)   0.164924% completed.    succeeded(60)   0.16772% completed.    succeeded(61)   0.170515% completed.    succeeded(62)   0.17331% completed.    succeeded(63)   0.176106% completed.    succeeded(64)   0.178901% completed.    succeeded(65)   0.181696% completed.    succeeded(66)   0.184492% completed.    succeeded(67)   0.187287% completed.    succeeded(68)   0.190082% completed.    succeeded(69)   0.192878% completed.    succeeded(70)   0.195673% completed.    succeeded(71)   0.198468% completed.    succeeded(72)   0.201263% completed.    succeeded(73)   0.204059% completed.    succeeded(74)   0.206854% completed.    succeeded(75)   0.209649% completed.    succeeded(76)   0.212445% completed.    succeeded(77)   0.21524% completed.    succeeded(78)   0.218035% completed.    succeeded(79)   0.220831% completed.    succeeded(80)   0.223626% completed.    succeeded(81)   0.226421% completed.    succeeded(82)   0.229217% completed.    succeeded(83)   0.232012% completed.    succeeded(84)   0.234807% completed.    succeeded(85)   0.237603% completed.    succeeded(86)   0.240398% completed.    succeeded(87)   0.243193% completed.    succeeded(88)   0.245989% completed.    succeeded(89)   0.248784% completed.    succeeded(90)   0.251579% completed.    succeeded(91)   0.254375% completed.    succeeded(92)   0.25717% completed.    succeeded(93)   0.259965% completed.    succeeded(94)   0.262761% completed.    succeeded(95)   0.265556% completed.    succeeded(96)   0.268351% completed.    succeeded(97)   0.271147% completed.    succeeded(98)   0.273942% completed.    succeeded(99)   0.276737% completed.    succeeded(100)   0.279533% completed.    succeeded(101)   0.282328% completed.    succeeded(102)   0.285123% completed.    succeeded(103)   0.287919% completed.    succeeded(104)   0.290714% completed.    succeeded(105)   0.293509% completed.    succeeded(106)   0.296305% completed.    succeeded(107)   0.2991% completed.    succeeded(108)   0.301895% completed.    succeeded(109)   0.304691% completed.    succeeded(110)   0.307486% completed.    succeeded(111)   0.310281% completed.    succeeded(112)   0.313077% completed.    succeeded(113)   0.315872% completed.    succeeded(114)   0.318667% completed.    succeeded(115)   0.321463% completed.    succeeded(116)   0.324258% completed.    succeeded(117)   0.327053% completed.    succeeded(118)   0.329848% completed.    succeeded(119)   0.332644% completed.    succeeded(120)   0.335439% completed.    succeeded(121)   0.338234% completed.    slurmstepd-i35: error: *** JOB 686162 ON i35 CANCELLED AT 2017-05-03T14:26:15 ***
