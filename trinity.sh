@@ -10,4 +10,4 @@ module unload perl
 module load perl/5.22.0
 module load trinity-rnaseq
 
-Trinity --seqType fq --max_memory 50G --left reads1.fastq.gz --right reads2.fastq.gz --trimmomatic --SS_lib_type RF --CPU 16 --output /rhome/arajewski/shared/genetree/trinity_output_fabiana
+Trinity --seqType fq --max_memory 200G --left reads1.fastq.gz --right reads2.fastq.gz --trimmomatic --SS_lib_type RF --CPU 16 --output /rhome/arajewski/shared/genetree/trinity_output_fabiana
