@@ -1,1007 +1,0 @@
-perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
-perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
-
-Left read files: $VAR1 = [
-          '/rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz'
-        ];
-Right read files: $VAR1 = [
-          '/rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair2_ACAGTG.fastq.gz'
-        ];
-Trinity version: Trinity-v2.4.0
--currently using the latest production release of Trinity.
-
-Tuesday, May 2, 2017: 16:55:08	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 0
-Tuesday, May 2, 2017: 16:55:08	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 1
-
-
-----------------------------------------------------------------------------------
--------------- Trinity Phase 1: Clustering of RNA-Seq Reads  ---------------------
-----------------------------------------------------------------------------------
-
----------------------------------------------------------------
------- Quality Trimming Via Trimmomatic  ---------------------
-<< ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25 >>
----------------------------------------------------------------
-
-
-## Running Trimmomatic on read files: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz, /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair2_ACAGTG.fastq.gz
-###############################################################################
-#### Trimmomatic  process was previously completed. Skipping it and using existing qual-trimmed files: flowcell608_lane1_pair1_ACAGTG.fastq.gz.PwU.qtrim.fq, flowcell608_lane1_pair2_ACAGTG.fastq.gz.PwU.qtrim.fq
-###############################################################################
----------------------------------------------------------------
------------- In silico Read Normalization ---------------------
--- (Removing Excess Reads Beyond 50 Coverage --
----------------------------------------------------------------
-
-# running normalization on reads: $VAR1 = [
-          [
-            'flowcell608_lane1_pair1_ACAGTG.fastq.gz.PwU.qtrim.fq'
-          ],
-          [
-            'flowcell608_lane1_pair2_ACAGTG.fastq.gz.PwU.qtrim.fq'
-          ]
-        ];
-
-
-
-
-#######################################################################
-Inchworm file: /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa detected.
-Skipping Inchworm Step, Using Previous Inchworm Assembly
-#######################################################################
-
---------------------------------------------------------
--------------------- Chrysalis -------------------------
--- (Contig Clustering & de Bruijn Graph Construction) --
---------------------------------------------------------
-
-inchworm_target: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
-bowite_reads_fa: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
-chrysalis_reads_fa: /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/filter_iworm_by_min_length_or_cov.pl /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa 100 10 > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100, checkpoint exists.
--- Skipping CMD: bowtie2-build -o 3 /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 1>/dev/null, checkpoint exists.
--- Skipping CMD: bash -c " set -o pipefail;bowtie2 --local -k 2 --threads 16 -f --score-min G,46,0 -x /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/inchworm.K25.L25.fa.min100 /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa  | samtools view -@ 16 -F4 -Sb - | samtools sort -m 1677721600 -@ 16 -no - - > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm.bowtie.nameSorted.bam" , checkpoint exists.
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/scaffold_iworm_contigs.pl /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm.bowtie.nameSorted.bam /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_scaffolds.txt, checkpoint exists.
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/GraphFromFasta -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa -r /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa -min_contig_length 200 -min_glue 2 -glue_factor 0.05 -min_iso_ratio 0.05 -t 16 -k 24 -kk 48  -strand  -scaffolding /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_scaffolds.txt  > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_cluster_welds_graph.txt, checkpoint exists.
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/BubbleUpClustering -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/inchworm.K25.L25.fa  -weld_graph /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/iworm_cluster_welds_graph.txt -min_contig_length 200  > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/GraphFromIwormFasta.out, checkpoint exists.
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/CreateIwormFastaBundle -i /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/GraphFromIwormFasta.out -o /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/bundled_iworm_contigs.fasta -min 200, checkpoint exists.
--- Skipping CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Chrysalis/ReadsToTranscripts -i /bigdata/littlab/shared/genetree/trinity_output_fabiana/both.fa -f /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/bundled_iworm_contigs.fasta -o /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out -t 16 -max_mem_reads 50000000  -strand , checkpoint exists.
--- Skipping CMD: /usr/bin/sort --parallel=16 -T . -S 50G -k 1,1n /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out > /rhome/arajewski/shared/genetree/trinity_output_fabiana/chrysalis/readsToComponents.out.sort, checkpoint exists.
-
-
---------------------------------------------------------------------------------
------------- Trinity Phase 2: Assembling Clusters of Reads ---------------------
---------------------------------------------------------------------------------
-
-Tuesday, May 2, 2017: 16:55:09	CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/parafly/bin/ParaFly -c recursive_trinity.cmds -CPU 16 -v 
-Number of Commands: 35687
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(1)   0.00280214% completed.    succeeded(0), failed(2)   0.00560428% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(3)   0.00840642% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(4)   0.0112086% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(5)   0.0140107% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(6)   0.0168128% completed.    succeeded(0), failed(7)   0.019615% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(8)   0.0224171% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(9)   0.0252193% completed.    succeeded(0), failed(10)   0.0280214% completed.    succeeded(0), failed(11)   0.0308235% completed.    succeeded(0), failed(12)   0.0336257% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(13)   0.0364278% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(14)   0.03923% completed.    succeeded(0), failed(15)   0.0420321% completed.    succeeded(0), failed(16)   0.0448343% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(17)   0.0476364% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(18)   0.0504385% completed.    succeeded(0), failed(19)   0.0532407% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(20)   0.0560428% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(21)   0.058845% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(22)   0.0616471% completed.    succeeded(0), failed(23)   0.0644492% completed.    succeeded(0), failed(24)   0.0672514% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(25)   0.0700535% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(26)   0.0728557% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(27)   0.0756578% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(28)   0.0784599% completed.    succeeded(0), failed(29)   0.0812621% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(30)   0.0840642% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(31)   0.0868664% completed.    succeeded(0), failed(32)   0.0896685% completed.    succeeded(0), failed(33)   0.0924706% completed.    succeeded(0), failed(34)   0.0952728% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(35)   0.0980749% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(36)   0.100877% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(37)   0.103679% completed.    succeeded(0), failed(38)   0.106481% completed.    succeeded(0), failed(40)   0.112086% completed.    succeeded(0), failed(40)   0.112086% completed.    succeeded(0), failed(41)   0.114888% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(42)   0.11769% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(43)   0.120492% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(44)   0.123294% completed.    succeeded(0), failed(45)   0.126096% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(46)   0.128898% completed.    succeeded(0), failed(47)   0.131701% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(48)   0.134503% completed.    succeeded(0), failed(49)   0.137305% completed.    succeeded(0), failed(50)   0.140107% completed.    succeeded(0), failed(51)   0.142909% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(52)   0.145711% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(53)   0.148513% completed.    succeeded(0), failed(54)   0.151316% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(55)   0.154118% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(56)   0.15692% completed.    succeeded(0), failed(57)   0.159722% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(58)   0.162524% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(59)   0.165326% completed.    succeeded(0), failed(60)   0.168128% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(61)   0.170931% completed.    succeeded(0), failed(62)   0.173733% completed.    succeeded(0), failed(63)   0.176535% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(64)   0.179337% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(65)   0.182139% completed.    succeeded(0), failed(66)   0.184941% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(67)   0.187743% completed.    succeeded(0), failed(68)   0.190546% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(69)   0.193348% completed.    succeeded(0), failed(70)   0.19615% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(71)   0.198952% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(72)   0.201754% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(73)   0.204556% completed.    succeeded(0), failed(74)   0.207358% completed.    succeeded(0), failed(75)   0.210161% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(76)   0.212963% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(77)   0.215765% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(78)   0.218567% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(79)   0.221369% completed.    succeeded(0), failed(80)   0.224171% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(81)   0.226973% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(82)   0.229776% completed.    succeeded(0), failed(83)   0.232578% completed.    succeeded(0), failed(84)   0.23538% completed.    succeeded(0), failed(85)   0.238182% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(86)   0.240984% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(87)   0.243786% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(88)   0.246588% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(89)   0.249391% completed.    succeeded(0), failed(90)   0.252193% completed.    succeeded(0), failed(91)   0.254995% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(92)   0.257797% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(93)   0.260599% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(94)   0.263401% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(95)   0.266203% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(96)   0.269006% completed.    succeeded(0), failed(97)   0.271808% completed.    succeeded(0), failed(98)   0.27461% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(99)   0.277412% completed.    succeeded(0), failed(100)   0.280214% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(101)   0.283016% completed.    succeeded(0), failed(102)   0.285818% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(103)   0.288621% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(104)   0.291423% completed.    succeeded(0), failed(105)   0.294225% completed.    succeeded(0), failed(106)   0.297027% completed.    succeeded(0), failed(107)   0.299829% completed.    succeeded(0), failed(108)   0.302631% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(109)   0.305433% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(110)   0.308235% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(111)   0.311038% completed.    succeeded(0), failed(112)   0.31384% completed.    succeeded(0), failed(113)   0.316642% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(114)   0.319444% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(115)   0.322246% completed.    succeeded(0), failed(116)   0.325048% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(117)   0.32785% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(118)   0.330653% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(119)   0.333455% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(120)   0.336257% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(121)   0.339059% completed.    succeeded(0), failed(122)   0.341861% completed.    succeeded(0), failed(123)   0.344663% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(124)   0.347465% completed.    succeeded(0), failed(125)   0.350268% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(126)   0.35307% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(127)   0.355872% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(128)   0.358674% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(129)   0.361476% completed.    succeeded(0), failed(130)   0.364278% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(131)   0.36708% completed.    succeeded(0), failed(132)   0.369883% completed.    succeeded(0), failed(133)   0.372685% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(134)   0.375487% completed.    succeeded(0), failed(135)   0.378289% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(136)   0.381091% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(137)   0.383893% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(138)   0.386695% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(139)   0.389498% completed.    succeeded(0), failed(140)   0.3923% completed.    succeeded(0), failed(141)   0.395102% completed.    succeeded(0), failed(142)   0.397904% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(143)   0.400706% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(144)   0.403508% completed.    succeeded(0), failed(145)   0.40631% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(146)   0.409113% completed.    succeeded(0), failed(147)   0.411915% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(148)   0.414717% completed.    succeeded(0), failed(149)   0.417519% completed.    succeeded(0), failed(150)   0.420321% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(151)   0.423123% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(152)   0.425925% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(153)   0.428728% completed.    succeeded(0), failed(154)   0.43153% completed.    succeeded(0), failed(155)   0.434332% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(156)   0.437134% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(157)   0.439936% completed.    succeeded(0), failed(158)   0.442738% completed.    succeeded(0), failed(159)   0.44554% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(160)   0.448343% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(161)   0.451145% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(162)   0.453947% completed.    succeeded(0), failed(163)   0.456749% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(164)   0.459551% completed.    succeeded(0), failed(165)   0.462353% completed.    succeeded(0), failed(166)   0.465155% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(167)   0.467957% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(168)   0.47076% completed.    succeeded(0), failed(169)   0.473562% completed.    succeeded(0), failed(170)   0.476364% completed.    succeeded(0), failed(171)   0.479166% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(172)   0.481968% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(173)   0.48477% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(174)   0.487573% completed.    succeeded(0), failed(175)   0.490375% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(176)   0.493177% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(177)   0.495979% completed.    succeeded(0), failed(178)   0.498781% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(179)   0.501583% completed.    succeeded(0), failed(180)   0.504385% completed.    succeeded(0), failed(181)   0.507187% completed.    succeeded(0), failed(182)   0.50999% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(183)   0.512792% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(184)   0.515594% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(185)   0.518396% completed.    succeeded(0), failed(186)   0.521198% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(187)   0.524% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(188)   0.526802% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(189)   0.529605% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(190)   0.532407% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(191)   0.535209% completed.    succeeded(0), failed(192)   0.538011% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(193)   0.540813% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(194)   0.543615% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(195)   0.546417% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(196)   0.54922% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(197)   0.552022% completed.    succeeded(0), failed(198)   0.554824% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(199)   0.557626% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(200)   0.560428% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(201)   0.56323% completed.    succeeded(0), failed(202)   0.566032% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(203)   0.568835% completed.    succeeded(0), failed(204)   0.571637% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(205)   0.574439% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(206)   0.577241% completed.    succeeded(0), failed(207)   0.580043% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(208)   0.582845% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(209)   0.585647% completed.    succeeded(0), failed(210)   0.58845% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(211)   0.591252% completed.    succeeded(0), failed(212)   0.594054% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(213)   0.596856% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(214)   0.599658% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(215)   0.60246% completed.    succeeded(0), failed(216)   0.605262% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(217)   0.608065% completed.    succeeded(0), failed(218)   0.610867% completed.    succeeded(0), failed(219)   0.613669% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(220)   0.616471% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(221)   0.619273% completed.    succeeded(0), failed(222)   0.622075% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(223)   0.624877% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(224)   0.62768% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(225)   0.630482% completed.    succeeded(0), failed(226)   0.633284% completed.    succeeded(0), failed(227)   0.636086% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(228)   0.638888% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(229)   0.64169% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(230)   0.644492% completed.    succeeded(0), failed(231)   0.647295% completed.    succeeded(0), failed(232)   0.650097% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(233)   0.652899% completed.    succeeded(0), failed(234)   0.655701% completed.    succeeded(0), failed(235)   0.658503% completed.    succeeded(0), failed(236)   0.661305% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(237)   0.664107% completed.    succeeded(0), failed(238)   0.66691% completed.    succeeded(0), failed(239)   0.669712% completed.    succeeded(0), failed(240)   0.672514% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(241)   0.675316% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(242)   0.678118% completed.    succeeded(0), failed(243)   0.68092% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(244)   0.683722% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(245)   0.686525% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(246)   0.689327% completed.    succeeded(0), failed(247)   0.692129% completed.    succeeded(0), failed(248)   0.694931% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(249)   0.697733% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(250)   0.700535% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(251)   0.703337% completed.    succeeded(0), failed(252)   0.70614% completed.    succeeded(0), failed(253)   0.708942% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(254)   0.711744% completed.    succeeded(0), failed(255)   0.714546% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(256)   0.717348% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(257)   0.72015% completed.    succeeded(0), failed(258)   0.722952% completed.    succeeded(0), failed(259)   0.725754% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(260)   0.728557% completed.    succeeded(0), failed(261)   0.731359% completed.    succeeded(0), failed(262)   0.734161% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(263)   0.736963% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(264)   0.739765% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(265)   0.742567% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(266)   0.745369% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(267)   0.748172% completed.    succeeded(0), failed(268)   0.750974% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(269)   0.753776% completed.    succeeded(0), failed(270)   0.756578% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(271)   0.75938% completed.    succeeded(0), failed(272)   0.762182% completed.    succeeded(0), failed(273)   0.764984% completed.    succeeded(0), failed(274)   0.767787% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(275)   0.770589% completed.    succeeded(0), failed(276)   0.773391% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(277)   0.776193% completed.    succeeded(0), failed(278)   0.778995% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(279)   0.781797% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(280)   0.784599% completed.    succeeded(0), failed(281)   0.787402% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(282)   0.790204% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(283)   0.793006% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(284)   0.795808% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(285)   0.79861% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(286)   0.801412% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(287)   0.804214% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(288)   0.807017% completed.    succeeded(0), failed(289)   0.809819% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(290)   0.812621% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(291)   0.815423% completed.    succeeded(0), failed(292)   0.818225% completed.    succeeded(0), failed(293)   0.821027% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(294)   0.823829% completed.    succeeded(0), failed(295)   0.826632% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(296)   0.829434% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(297)   0.832236% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(298)   0.835038% completed.    succeeded(0), failed(299)   0.83784% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(300)   0.840642% completed.    succeeded(0), failed(301)   0.843444% completed.    succeeded(0), failed(302)   0.846247% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(303)   0.849049% completed.    succeeded(0), failed(304)   0.851851% completed.    succeeded(0), failed(305)   0.854653% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(306)   0.857455% completed.    succeeded(0), failed(307)   0.860257% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(308)   0.863059% completed.    succeeded(0), failed(309)   0.865861% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(310)   0.868664% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(311)   0.871466% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(312)   0.874268% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(313)   0.87707% completed.    succeeded(0), failed(314)   0.879872% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(315)   0.882674% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(316)   0.885477% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(317)   0.888279% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(318)   0.891081% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(319)   0.893883% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(320)   0.896685% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(321)   0.899487% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(322)   0.902289% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(323)   0.905092% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(324)   0.907894% completed.    succeeded(0), failed(325)   0.910696% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(326)   0.913498% completed.    succeeded(0), failed(327)   0.9163% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(328)   0.919102% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(329)   0.921904% completed.    succeeded(0), failed(330)   0.924706% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(331)   0.927509% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(332)   0.930311% completed.    succeeded(0), failed(333)   0.933113% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(334)   0.935915% completed.    succeeded(0), failed(335)   0.938717% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(336)   0.941519% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(337)   0.944321% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(338)   0.947124% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(339)   0.949926% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(340)   0.952728% completed.    succeeded(0), failed(341)   0.95553% completed.    succeeded(0), failed(342)   0.958332% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(343)   0.961134% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(344)   0.963936% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(345)   0.966739% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(346)   0.969541% completed.    succeeded(0), failed(347)   0.972343% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(348)   0.975145% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(349)   0.977947% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(350)   0.980749% completed.    succeeded(0), failed(351)   0.983551% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(352)   0.986354% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(353)   0.989156% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(354)   0.991958% completed.    succeeded(0), failed(355)   0.99476% completed.    succeeded(0), failed(356)   0.997562% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(357)   1.00036% completed.    succeeded(0), failed(358)   1.00317% completed.    succeeded(0), failed(359)   1.00597% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(360)   1.00877% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(361)   1.01157% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(362)   1.01437% completed.    succeeded(0), failed(363)   1.01718% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(364)   1.01998% completed.    succeeded(0), failed(365)   1.02278% completed.    succeeded(0), failed(366)   1.02558% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(367)   1.02839% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(368)   1.03119% completed.    succeeded(0), failed(369)   1.03399% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(370)   1.03679% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(371)   1.03959% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(372)   1.0424% completed.    succeeded(0), failed(373)   1.0452% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(374)   1.048% completed.    succeeded(0), failed(375)   1.0508% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(376)   1.0536% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(377)   1.05641% completed.    succeeded(0), failed(378)   1.05921% completed.    succeeded(0), failed(379)   1.06201% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(380)   1.06481% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(381)   1.06762% completed.    succeeded(0), failed(382)   1.07042% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(383)   1.07322% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(384)   1.07602% completed.    succeeded(0), failed(385)   1.07882% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(386)   1.08163% completed.    succeeded(0), failed(387)   1.08443% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(388)   1.08723% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(389)   1.09003% completed.    succeeded(0), failed(390)   1.09283% completed.    succeeded(0), failed(391)   1.09564% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(392)   1.09844% completed.    succeeded(0), failed(393)   1.10124% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(394)   1.10404% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(395)   1.10685% completed.    succeeded(0), failed(396)   1.10965% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(397)   1.11245% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(398)   1.11525% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(399)   1.11805% completed.    succeeded(0), failed(400)   1.12086% completed.    succeeded(0), failed(401)   1.12366% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(402)   1.12646% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(403)   1.12926% completed.    succeeded(0), failed(404)   1.13206% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(405)   1.13487% completed.    succeeded(0), failed(406)   1.13767% completed.    succeeded(0), failed(407)   1.14047% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(408)   1.14327% completed.    succeeded(0), failed(409)   1.14608% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(410)   1.14888% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(411)   1.15168% completed.    succeeded(0), failed(412)   1.15448% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(413)   1.15728% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(414)   1.16009% completed.    succeeded(0), failed(415)   1.16289% completed.    succeeded(0), failed(416)   1.16569% completed.    succeeded(0), failed(417)   1.16849% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(418)   1.17129% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(419)   1.1741% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(420)   1.1769% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(421)   1.1797% completed.    succeeded(0), failed(422)   1.1825% completed.    succeeded(0), failed(423)   1.18531% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(424)   1.18811% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(425)   1.19091% completed.    succeeded(0), failed(426)   1.19371% completed.    succeeded(0), failed(427)   1.19651% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(428)   1.19932% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(429)   1.20212% completed.    succeeded(0), failed(430)   1.20492% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(431)   1.20772% completed.    succeeded(0), failed(432)   1.21052% completed.    succeeded(0), failed(434)   1.21613% completed.    succeeded(0), failed(434)   1.21613% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(435)   1.21893% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(436)   1.22173% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(437)   1.22454% completed.    succeeded(0), failed(438)   1.22734% completed.    succeeded(0), failed(439)   1.23014% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(440)   1.23294% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(441)   1.23574% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(442)   1.23855% completed.    succeeded(0), failed(443)   1.24135% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(444)   1.24415% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(445)   1.24695% completed.    succeeded(0), failed(446)   1.24975% completed.    succeeded(0), failed(447)   1.25256% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(448)   1.25536% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(449)   1.25816% completed.    succeeded(0), failed(450)   1.26096% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(451)   1.26377% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(452)   1.26657% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(453)   1.26937% completed.    succeeded(0), failed(454)   1.27217% completed.    succeeded(0), failed(455)   1.27497% completed.    succeeded(0), failed(456)   1.27778% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(457)   1.28058% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(458)   1.28338% completed.    succeeded(0), failed(459)   1.28618% completed.    succeeded(0), failed(460)   1.28898% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(461)   1.29179% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(462)   1.29459% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(463)   1.29739% completed.    succeeded(0), failed(464)   1.30019% completed.    succeeded(0), failed(465)   1.303% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(466)   1.3058% completed.    succeeded(0), failed(467)   1.3086% completed.    succeeded(0), failed(468)   1.3114% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(469)   1.3142% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(470)   1.31701% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(471)   1.31981% completed.    succeeded(0), failed(472)   1.32261% completed.    succeeded(0), failed(473)   1.32541% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(474)   1.32821% completed.    succeeded(0), failed(475)   1.33102% completed.    succeeded(0), failed(476)   1.33382% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(477)   1.33662% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(478)   1.33942% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(479)   1.34223% completed.    succeeded(0), failed(480)   1.34503% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(481)   1.34783% completed.    succeeded(0), failed(482)   1.35063% completed.    succeeded(0), failed(483)   1.35343% completed.    succeeded(0), failed(484)   1.35624% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(485)   1.35904% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(486)   1.36184% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(487)   1.36464% completed.    succeeded(0), failed(488)   1.36744% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(489)   1.37025% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(490)   1.37305% completed.    succeeded(0), failed(491)   1.37585% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(492)   1.37865% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(493)   1.38146% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(494)   1.38426% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(495)   1.38706% completed.    succeeded(0), failed(496)   1.38986% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(497)   1.39266% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(498)   1.39547% completed.    succeeded(0), failed(499)   1.39827% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(500)   1.40107% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(501)   1.40387% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(502)   1.40667% completed.    succeeded(0), failed(503)   1.40948% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(504)   1.41228% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(505)   1.41508% completed.    succeeded(0), failed(506)   1.41788% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(507)   1.42069% completed.    succeeded(0), failed(508)   1.42349% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(509)   1.42629% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(510)   1.42909% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(511)   1.43189% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(512)   1.4347% completed.    succeeded(0), failed(513)   1.4375% completed.    succeeded(0), failed(515)   1.4431% completed.    succeeded(0), failed(515)   1.4431% completed.    succeeded(0), failed(516)   1.4459% completed.    succeeded(0), failed(517)   1.44871% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(518)   1.45151% completed.    succeeded(0), failed(519)   1.45431% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(520)   1.45711% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(521)   1.45992% completed.    succeeded(0), failed(522)   1.46272% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(523)   1.46552% completed.    succeeded(0), failed(524)   1.46832% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(525)   1.47112% completed.    succeeded(0), failed(526)   1.47393% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(527)   1.47673% completed.    succeeded(0), failed(528)   1.47953% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(529)   1.48233% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(530)   1.48513% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(531)   1.48794% completed.    succeeded(0), failed(532)   1.49074% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(533)   1.49354% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(534)   1.49634% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(535)   1.49915% completed.    succeeded(0), failed(536)   1.50195% completed.    succeeded(0), failed(537)   1.50475% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(538)   1.50755% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(539)   1.51035% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(540)   1.51316% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(541)   1.51596% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(542)   1.51876% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(543)   1.52156% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(544)   1.52436% completed.    succeeded(0), failed(545)   1.52717% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(546)   1.52997% completed.    succeeded(0), failed(547)   1.53277% completed.    succeeded(0), failed(548)   1.53557% completed.    succeeded(0), failed(549)   1.53838% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(550)   1.54118% completed.    succeeded(0), failed(551)   1.54398% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(552)   1.54678% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(553)   1.54958% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(554)   1.55239% completed.    succeeded(0), failed(555)   1.55519% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(556)   1.55799% completed.    succeeded(0), failed(557)   1.56079% completed.    succeeded(0), failed(558)   1.56359% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(559)   1.5664% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(560)   1.5692% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(561)   1.572% completed.    succeeded(0), failed(562)   1.5748% completed.    succeeded(0), failed(563)   1.57761% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(564)   1.58041% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(565)   1.58321% completed.    succeeded(0), failed(566)   1.58601% completed.    succeeded(0), failed(567)   1.58881% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(568)   1.59162% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(569)   1.59442% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(570)   1.59722% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(571)   1.60002% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(572)   1.60282% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(573)   1.60563% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(574)   1.60843% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(575)   1.61123% completed.    succeeded(0), failed(576)   1.61403% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(577)   1.61684% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(578)   1.61964% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(579)   1.62244% completed.    succeeded(0), failed(580)   1.62524% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(581)   1.62804% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(582)   1.63085% completed.    succeeded(0), failed(583)   1.63365% completed.    succeeded(0), failed(584)   1.63645% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(585)   1.63925% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(586)   1.64205% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(587)   1.64486% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(588)   1.64766% completed.    succeeded(0), failed(589)   1.65046% completed.    succeeded(0), failed(590)   1.65326% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(591)   1.65607% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(592)   1.65887% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(593)   1.66167% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(594)   1.66447% completed.    succeeded(0), failed(595)   1.66727% completed.    succeeded(0), failed(596)   1.67008% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(597)   1.67288% completed.    succeeded(0), failed(598)   1.67568% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(599)   1.67848% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(600)   1.68128% completed.    succeeded(0), failed(601)   1.68409% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(602)   1.68689% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(603)   1.68969% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(604)   1.69249% completed.    succeeded(0), failed(605)   1.6953% completed.    succeeded(0), failed(606)   1.6981% completed.    succeeded(0), failed(607)   1.7009% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(608)   1.7037% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(609)   1.7065% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(610)   1.70931% completed.    succeeded(0), failed(611)   1.71211% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(612)   1.71491% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(613)   1.71771% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(614)   1.72051% completed.    succeeded(0), failed(615)   1.72332% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(616)   1.72612% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(617)   1.72892% completed.    succeeded(0), failed(618)   1.73172% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(619)   1.73453% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(620)   1.73733% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(621)   1.74013% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(622)   1.74293% completed.    succeeded(0), failed(623)   1.74573% completed.    succeeded(0), failed(624)   1.74854% completed.    succeeded(0), failed(625)   1.75134% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(626)   1.75414% completed.    succeeded(0), failed(627)   1.75694% completed.    succeeded(0), failed(628)   1.75974% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(629)   1.76255% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(630)   1.76535% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(631)   1.76815% completed.    succeeded(0), failed(632)   1.77095% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(633)   1.77376% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(634)   1.77656% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(635)   1.77936% completed.    succeeded(0), failed(636)   1.78216% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(637)   1.78496% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(638)   1.78777% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(639)   1.79057% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(640)   1.79337% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(641)   1.79617% completed.    succeeded(0), failed(642)   1.79897% completed.    succeeded(0), failed(643)   1.80178% completed.    succeeded(0), failed(644)   1.80458% completed.    succeeded(0), failed(645)   1.80738% completed.    succeeded(0), failed(646)   1.81018% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(647)   1.81299% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(648)   1.81579% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(649)   1.81859% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(650)   1.82139% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(651)   1.82419% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(652)   1.827% completed.    succeeded(0), failed(653)   1.8298% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(654)   1.8326% completed.    succeeded(0), failed(655)   1.8354% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(656)   1.8382% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(657)   1.84101% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(658)   1.84381% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(659)   1.84661% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(660)   1.84941% completed.    succeeded(0), failed(661)   1.85222% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(662)   1.85502% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(663)   1.85782% completed.    succeeded(0), failed(664)   1.86062% completed.    succeeded(0), failed(665)   1.86342% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(666)   1.86623% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(667)   1.86903% completed.    succeeded(0), failed(668)   1.87183% completed.    succeeded(0), failed(669)   1.87463% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(670)   1.87743% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(671)   1.88024% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(673)   1.88584% completed.    succeeded(0), failed(673)   1.88584% completed.    succeeded(0), failed(675)   1.89145% completed.    succeeded(0), failed(675)   1.89145% completed.    succeeded(0), failed(676)   1.89425% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(677)   1.89705% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(678)   1.89985% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(679)   1.90265% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(680)   1.90546% completed.    succeeded(0), failed(681)   1.90826% completed.    succeeded(0), failed(682)   1.91106% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(683)   1.91386% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(684)   1.91666% completed.    succeeded(0), failed(685)   1.91947% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(686)   1.92227% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(687)   1.92507% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(688)   1.92787% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(689)   1.93068% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(690)   1.93348% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(691)   1.93628% completed.    succeeded(0), failed(692)   1.93908% completed.    succeeded(0), failed(693)   1.94188% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(694)   1.94469% completed.    succeeded(0), failed(695)   1.94749% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(696)   1.95029% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(697)   1.95309% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(698)   1.95589% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(699)   1.9587% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(700)   1.9615% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(701)   1.9643% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(702)   1.9671% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(703)   1.96991% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(704)   1.97271% completed.    succeeded(0), failed(705)   1.97551% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(706)   1.97831% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(707)   1.98111% completed.    succeeded(0), failed(708)   1.98392% completed.    succeeded(0), failed(709)   1.98672% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(710)   1.98952% completed.    succeeded(0), failed(711)   1.99232% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(712)   1.99512% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(713)   1.99793% completed.    succeeded(0), failed(714)   2.00073% completed.    succeeded(0), failed(715)   2.00353% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(716)   2.00633% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(717)   2.00914% completed.    succeeded(0), failed(718)   2.01194% completed.    succeeded(0), failed(719)   2.01474% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(720)   2.01754% completed.    succeeded(0), failed(721)   2.02034% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(722)   2.02315% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(723)   2.02595% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(724)   2.02875% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(725)   2.03155% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(726)   2.03435% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(727)   2.03716% completed.    succeeded(0), failed(728)   2.03996% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(729)   2.04276% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(730)   2.04556% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(731)   2.04837% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(732)   2.05117% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(733)   2.05397% completed.    succeeded(0), failed(734)   2.05677% completed.    succeeded(0), failed(735)   2.05957% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(736)   2.06238% completed.    succeeded(0), failed(737)   2.06518% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(738)   2.06798% completed.    succeeded(0), failed(739)   2.07078% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(740)   2.07358% completed.    succeeded(0), failed(741)   2.07639% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(742)   2.07919% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(743)   2.08199% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(744)   2.08479% completed.    succeeded(0), failed(745)   2.08759% completed.    succeeded(0), failed(746)   2.0904% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(747)   2.0932% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(748)   2.096% completed.    succeeded(0), failed(749)   2.0988% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(750)   2.10161% completed.    succeeded(0), failed(751)   2.10441% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(752)   2.10721% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(753)   2.11001% completed.    succeeded(0), failed(754)   2.11281% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(755)   2.11562% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(756)   2.11842% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(757)   2.12122% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(758)   2.12402% completed.    succeeded(0), failed(759)   2.12682% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(760)   2.12963% completed.    succeeded(0), failed(761)   2.13243% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(762)   2.13523% completed.    succeeded(0), failed(763)   2.13803% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(764)   2.14084% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(765)   2.14364% completed.    succeeded(0), failed(766)   2.14644% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(767)   2.14924% completed.    succeeded(0), failed(768)   2.15204% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(769)   2.15485% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(770)   2.15765% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(771)   2.16045% completed.    succeeded(0), failed(772)   2.16325% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(773)   2.16605% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(774)   2.16886% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(775)   2.17166% completed.    succeeded(0), failed(776)   2.17446% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(777)   2.17726% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(778)   2.18007% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(779)   2.18287% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(780)   2.18567% completed.    succeeded(0), failed(781)   2.18847% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(782)   2.19127% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(783)   2.19408% completed.    succeeded(0), failed(784)   2.19688% completed.    succeeded(0), failed(785)   2.19968% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(786)   2.20248% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(787)   2.20528% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(788)   2.20809% completed.    succeeded(0), failed(789)   2.21089% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(790)   2.21369% completed.    succeeded(0), failed(791)   2.21649% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(792)   2.2193% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(793)   2.2221% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(794)   2.2249% completed.    succeeded(0), failed(795)   2.2277% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(796)   2.2305% completed.    succeeded(0), failed(797)   2.23331% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(798)   2.23611% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(799)   2.23891% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(800)   2.24171% completed.    succeeded(0), failed(801)   2.24451% completed.    succeeded(0), failed(802)   2.24732% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(803)   2.25012% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(804)   2.25292% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(805)   2.25572% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(806)   2.25853% completed.    succeeded(0), failed(807)   2.26133% completed.    succeeded(0), failed(808)   2.26413% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(809)   2.26693% completed.    succeeded(0), failed(810)   2.26973% completed.    succeeded(0), failed(811)   2.27254% completed.    succeeded(0), failed(812)   2.27534% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(813)   2.27814% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(814)   2.28094% completed.    succeeded(0), failed(815)   2.28374% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(816)   2.28655% completed.    succeeded(0), failed(817)   2.28935% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(818)   2.29215% completed.    succeeded(0), failed(819)   2.29495% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(820)   2.29776% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(821)   2.30056% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(822)   2.30336% completed.    succeeded(0), failed(823)   2.30616% completed.    succeeded(0), failed(824)   2.30896% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(826)   2.31457% completed.    succeeded(0), failed(826)   2.31457% completed.    succeeded(0), failed(827)   2.31737% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(828)   2.32017% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(829)   2.32297% completed.    succeeded(0), failed(830)   2.32578% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(831)   2.32858% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(832)   2.33138% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(833)   2.33418% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(834)   2.33699% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(835)   2.33979% completed.    succeeded(0), failed(836)   2.34259% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(837)   2.34539% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(838)   2.34819% completed.    succeeded(0), failed(839)   2.351% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(840)   2.3538% completed.    succeeded(0), failed(841)   2.3566% completed.    succeeded(0), failed(842)   2.3594% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(843)   2.3622% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(844)   2.36501% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(845)   2.36781% completed.    succeeded(0), failed(846)   2.37061% completed.    succeeded(0), failed(847)   2.37341% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(848)   2.37622% completed.    succeeded(0), failed(849)   2.37902% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(850)   2.38182% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(851)   2.38462% completed.    succeeded(0), failed(852)   2.38742% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(853)   2.39023% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(854)   2.39303% completed.    succeeded(0), failed(855)   2.39583% completed.    succeeded(0), failed(856)   2.39863% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(857)   2.40143% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(858)   2.40424% completed.    succeeded(0), failed(859)   2.40704% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(860)   2.40984% completed.    succeeded(0), failed(861)   2.41264% completed.    succeeded(0), failed(862)   2.41545% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(863)   2.41825% completed.    succeeded(0), failed(864)   2.42105% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(865)   2.42385% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(866)   2.42665% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(867)   2.42946% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(868)   2.43226% completed.    succeeded(0), failed(869)   2.43506% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(870)   2.43786% completed.    succeeded(0), failed(871)   2.44066% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(872)   2.44347% completed.    succeeded(0), failed(873)   2.44627% completed.    succeeded(0), failed(874)   2.44907% completed.    succeeded(0), failed(875)   2.45187% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(876)   2.45468% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(877)   2.45748% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(878)   2.46028% completed.    succeeded(0), failed(879)   2.46308% completed.    succeeded(0), failed(880)   2.46588% completed.    succeeded(0), failed(881)   2.46869% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(882)   2.47149% completed.    succeeded(0), failed(883)   2.47429% completed.    succeeded(0), failed(884)   2.47709% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(885)   2.47989% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(886)   2.4827% completed.    succeeded(0), failed(887)   2.4855% completed.    succeeded(0), failed(888)   2.4883% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(889)   2.4911% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(890)   2.49391% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(891)   2.49671% completed.    succeeded(0), failed(892)   2.49951% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(893)   2.50231% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(894)   2.50511% completed.    succeeded(0), failed(895)   2.50792% completed.    succeeded(0), failed(896)   2.51072% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(897)   2.51352% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(898)   2.51632% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(899)   2.51912% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(900)   2.52193% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(901)   2.52473% completed.    succeeded(0), failed(902)   2.52753% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(903)   2.53033% completed.    succeeded(0), failed(904)   2.53314% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(905)   2.53594% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(906)   2.53874% completed.    succeeded(0), failed(907)   2.54154% completed.    succeeded(0), failed(908)   2.54434% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(909)   2.54715% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(910)   2.54995% completed.    succeeded(0), failed(911)   2.55275% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(912)   2.55555% completed.    succeeded(0), failed(913)   2.55835% completed.    succeeded(0), failed(914)   2.56116% completed.    succeeded(0), failed(915)   2.56396% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(916)   2.56676% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(917)   2.56956% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(918)   2.57237% completed.    succeeded(0), failed(919)   2.57517% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(920)   2.57797% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(921)   2.58077% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(922)   2.58357% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(923)   2.58638% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(924)   2.58918% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(925)   2.59198% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(926)   2.59478% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(927)   2.59758% completed.    succeeded(0), failed(928)   2.60039% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
-succeeded(0), failed(929)   2.60319% completed.    Error, do not understand options: /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ACAGTG.fastq.gz --verbose
