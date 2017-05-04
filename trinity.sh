@@ -2,6 +2,9 @@
 #SBATCH --ntasks=16
 #SBATCH --nodes=1
 #SBATCH --mem=320G
+#SBATCH --time=07:00:00
+#SBATCH --mail-user=araje002@ucr.edu
+#SBATCH --mail-type=ALL
 
 cd /rhome/arajewski/shared/genetree/analysis/
 ln -s /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ATCACG.fastq.gz reads1.fastq.gz
