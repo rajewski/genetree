@@ -1,0 +1,74 @@
+ln: failed to create symbolic link 'reads1.fastq.gz': File exists
+ln: failed to create symbolic link 'reads2.fastq.gz': File exists
+Left read files: $VAR1 = [
+          'reads1.fastq.gz'
+        ];
+Right read files: $VAR1 = [
+          'reads2.fastq.gz'
+        ];
+Trinity version: Trinity-v2.4.0
+-currently using the latest production release of Trinity.
+
+Thursday, May 4, 2017: 08:54:55	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 0
+Thursday, May 4, 2017: 08:54:55	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 1
+Thursday, May 4, 2017: 08:54:55	CMD: mkdir -p /rhome/arajewski/shared/genetree/trinity_output_salpiglossis
+Thursday, May 4, 2017: 08:54:55	CMD: mkdir -p /rhome/arajewski/shared/genetree/trinity_output_salpiglossis/chrysalis
+
+
+----------------------------------------------------------------------------------
+-------------- Trinity Phase 1: Clustering of RNA-Seq Reads  ---------------------
+----------------------------------------------------------------------------------
+
+---------------------------------------------------------------
+------ Quality Trimming Via Trimmomatic  ---------------------
+<< ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25 >>
+---------------------------------------------------------------
+
+
+## Running Trimmomatic on read files: /bigdata/littlab/shared/genetree/analysis/reads1.fastq.gz, /bigdata/littlab/shared/genetree/analysis/reads2.fastq.gz
+Thursday, May 4, 2017: 08:54:55	CMD: java -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/trimmomatic.jar PE -threads 16 -phred33  /bigdata/littlab/shared/genetree/analysis/reads1.fastq.gz /bigdata/littlab/shared/genetree/analysis/reads2.fastq.gz  reads1.fastq.gz.P.qtrim reads1.fastq.gz.U.qtrim  reads2.fastq.gz.P.qtrim reads2.fastq.gz.U.qtrim  ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25 
+TrimmomaticPE: Started with arguments:
+ -threads 16 -phred33 /bigdata/littlab/shared/genetree/analysis/reads1.fastq.gz /bigdata/littlab/shared/genetree/analysis/reads2.fastq.gz reads1.fastq.gz.P.qtrim reads1.fastq.gz.U.qtrim reads2.fastq.gz.P.qtrim reads2.fastq.gz.U.qtrim ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 20805561 Both Surviving: 20661444 (99.31%) Forward Only Surviving: 34575 (0.17%) Reverse Only Surviving: 108792 (0.52%) Dropped: 750 (0.00%)
+TrimmomaticPE: Completed successfully
+Thursday, May 4, 2017: 08:55:43	CMD: cp reads1.fastq.gz.P.qtrim reads1.fastq.gz.PwU.qtrim.fq
+Thursday, May 4, 2017: 08:55:47	CMD: cp reads2.fastq.gz.P.qtrim reads2.fastq.gz.PwU.qtrim.fq
+Thursday, May 4, 2017: 08:55:50	CMD: touch trimmomatic.ok
+Thursday, May 4, 2017: 08:55:50	CMD: gzip reads1.fastq.gz.P.qtrim reads1.fastq.gz.U.qtrim reads2.fastq.gz.P.qtrim reads2.fastq.gz.U.qtrim &
+---------------------------------------------------------------
+------------ In silico Read Normalization ---------------------
+-- (Removing Excess Reads Beyond 50 Coverage --
+---------------------------------------------------------------
+
+# running normalization on reads: $VAR1 = [
+          [
+            'reads1.fastq.gz.PwU.qtrim.fq'
+          ],
+          [
+            'reads2.fastq.gz.PwU.qtrim.fq'
+          ]
+        ];
+
+
+Thursday, May 4, 2017: 08:55:50	CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/insilico_read_normalization.pl --seqType fq --JM 320G  --max_cov 50 --CPU 16 --output /bigdata/littlab/shared/genetree/trinity_output_salpiglossis/insilico_read_normalization   --max_pct_stdev 10000  --SS_lib_type RF  --left reads1.fastq.gz.PwU.qtrim.fq --right reads2.fastq.gz.PwU.qtrim.fq --pairs_together --PARALLEL_STATS  
+Converting input files. (both directions in parallel)CMD: seqtk-trinity seq -r -A /bigdata/littlab/shared/genetree/trinity_output_salpiglossis/reads1.fastq.gz.PwU.qtrim.fq >> left.fa
+CMD: seqtk-trinity seq -A /bigdata/littlab/shared/genetree/trinity_output_salpiglossis/reads2.fastq.gz.PwU.qtrim.fq >> right.fa
+CMD finished (12 seconds)
+CMD finished (14 seconds)
+CMD: touch left.fa.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.ok
+CMD finished (0 seconds)
+Done converting input files.CMD: cat left.fa right.fa > both.fa
+CMD finished (4 seconds)
+CMD: touch both.fa.ok
+-------------------------------------------
+----------- Jellyfish  --------------------
+-- (building a k-mer catalog from reads) --
+-------------------------------------------
+
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish count -t 16 -m 25 -s 100000000  both.fa
+slurmstepd-i01: error: *** JOB 687223 ON i01 CANCELLED AT 2017-05-04T08:56:55 ***

@@ -7,6 +7,9 @@
 #SBATCH --mail-type=ALL
 
 cd /rhome/arajewski/shared/genetree/analysis/
+rm reads1.fastq.gz
+rm reads2.fastq.gz
+
 ln -s /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair1_ATCACG.fastq.gz reads1.fastq.gz
 ln -s /rhome/arajewski/shared/genetree/sequencing/flowcell608_lane1_pair2_ATCACG.fastq.gz reads2.fastq.gz
 
