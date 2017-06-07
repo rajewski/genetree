@@ -1,0 +1,2 @@
+/var/spool/slurmd/job811957/slurm_script: line 16: [: missing `]'
+/var/spool/slurmd/job811957/slurm_script: One of more inputs do not exist. Please check the filenames.

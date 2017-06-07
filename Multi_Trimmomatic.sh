@@ -13,7 +13,7 @@ SEfile=flowcell636/flowcell636_lane1_pair1_ACAGTG.fastq.gz
 cd /rhome/arajewski/shared/genetree/analysis/
 
 #Check the input files exist
-if [ ! -e $PEfile1] || [ ! -e $PEfile2 ] || [ ! -e $SEfile]
+if [ ! -e ../sequencing/$PEfile1] || [ ! -e ../sequencing/$PEfile2 ] || [ ! -e ../sequencing/$SEfile ]
 then
     echo "$0: One of more inputs do not exist. Please check the filenames."
     exit 1
