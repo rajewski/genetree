@@ -1,0 +1,10 @@
+Removing previous links and creating new ones
+Loading required packages
+beginning single end sequence trimming with 16 cores.
+TrimmomaticSE: Started with arguments:
+ -threads 16 -phred33 SEreads.fastq.gz SEreadsTrimmed.fq.gz ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
+Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
+Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
+ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Reads: 116837121 Surviving: 116763938 (99.94%) Dropped: 73183 (0.06%)
+TrimmomaticSE: Completed successfully
