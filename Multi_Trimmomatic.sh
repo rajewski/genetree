@@ -30,7 +30,7 @@ module load perl/5.22.0
 module load trinity-rnaseq
 
 #Check for previous runs and do single end trimming
-if [ ! -e SEreadsTrimmed.gz.gz]
+if [ ! -e SEreadsTrimmed.fq.gz ]
 then
     echo "$0: Trimming Single-end read files with Trimmomatic using $SLURM_NTASKS cores."
     echo "$0: Creating symlinks to datafiles."
@@ -44,7 +44,7 @@ else
 fi
 
 #Check for previous run and do paired end trimming
-if [ ! -e PEreadsTrimmed_1P.fq.gz ] || [ ! -e PEreadsTrimmed_2P.fq.gz ] || [ ! -e PEreadsTrimmed_1U.fq.gz] || [ ! -e PEreadsTrimmed_2U.fq.gz]
+if [ ! -e PEreadsTrimmed_1P.fq.gz ] || [ ! -e PEreadsTrimmed_2P.fq.gz ] || [ ! -e PEreadsTrimmed_1U.fq.gz ] || [ ! -e PEreadsTrimmed_2U.fq.gz ]
     echo "$0: Trimming paired end read files with Trimmomatic using $SLURM_NTASKS cores."
     echo "$0: Creating symlinks to datafiles."
     ln -s /rhome/arajewski/shared/genetree/sequencing/$PEfile1 PEreads1.fastq.gz
