@@ -6,9 +6,9 @@
 #SBATCH --mail-user=araje002@ucr.edu
 #SBATCH --mail-type=ALL
 
-PEfile1="flowcell608/flowcell608_lane1_pair1_ACAGTG.fastq.gz"
-PEfile2="flowcell608/flowcell608_lane1_pair1_ACAGTG.fastq.gz"
-SEfile="flowcell636/flowcell636_lane1_pair1_ACAGTG.fastq.gz"
+PEfile1=flowcell608/flowcell608_lane1_pair1_ACAGTG.fastq.gz
+PEfile2=flowcell608/flowcell608_lane1_pair2_ACAGTG.fastq.gz
+SEfile=flowcell636/flowcell636_lane1_pair1_ACAGTG.fastq.gz
 
 cd /rhome/arajewski/shared/genetree/analysis/
 
