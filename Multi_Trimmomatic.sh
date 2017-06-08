@@ -40,13 +40,13 @@ then
     find -type l -delete
     echo "$0 [$(date +%T)]: Done."
 else
-    echo "$0 [$(date +%T)]: Trimmed Single-End Read File exists, skipping this step."
+    echo "$0 [$(date +%T)]: Trimmed Single-end Read File exists, skipping this step."
 fi
 
 #Check for previous run and do paired end trimming
 if [ ! -e PEreadsTrimmed_1P.fq.gz ] || [ ! -e PEreadsTrimmed_2P.fq.gz ] || [ ! -e PEreadsTrimmed_1U.fq.gz ] || [ ! -e PEreadsTrimmed_2U.fq.gz ]
 then
-    echo "$0 [$(date +%T)]: Trimming paired end read files with Trimmomatic using $SLURM_NTASKS cores."
+    echo "$0 [$(date +%T)]: Trimming paired-end read files with Trimmomatic using $SLURM_NTASKS cores."
     echo "$0 [$(date +%T)]: Creating symlinks to datafiles."
     ln -s /rhome/arajewski/shared/genetree/sequencing/$PEfile1 PEreads1.fastq.gz
     ln -s /rhome/arajewski/shared/genetree/sequencing/$PEfile2 PEreads2.fastq.gz
@@ -55,6 +55,6 @@ then
     find -type l -delete
     echo "$0 [$(date +%T)]: Done."
 else
-    echo "$0 [$(date +%T): Trimmed paired-end read files exist, skipping this step."
+    echo "$0 [$(date +%T)]: Trimmed paired-end read files exist, skipping this step."
 fi
 
