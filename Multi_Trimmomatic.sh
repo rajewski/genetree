@@ -13,7 +13,7 @@ SEfile=flowcell636/flowcell636_lane1_pair1_ACAGTG.fastq.gz
 cd /rhome/arajewski/shared/genetree/analysis/
 
 #Check the input files exist
-if [ ! -e ../sequencing/$PEfile1] || [ ! -e ../sequencing/$PEfile2 ] || [ ! -e ../sequencing/$SEfile ]
+if [ ! -e ../sequencing/$PEfile1 ] || [ ! -e ../sequencing/$PEfile2 ] || [ ! -e ../sequencing/$SEfile ]
 then
     echo "$0: One of more inputs do not exist. Please check the filenames."
     exit 1
@@ -24,7 +24,7 @@ else
 fi
 
 #Load required packages
-echo "Loading required packages"
+echo "$0: Loading required packages"
 module unload perl
 module load perl/5.22.0
 module load trinity-rnaseq
@@ -45,6 +45,7 @@ fi
 
 #Check for previous run and do paired end trimming
 if [ ! -e PEreadsTrimmed_1P.fq.gz ] || [ ! -e PEreadsTrimmed_2P.fq.gz ] || [ ! -e PEreadsTrimmed_1U.fq.gz ] || [ ! -e PEreadsTrimmed_2U.fq.gz ]
+then
     echo "$0: Trimming paired end read files with Trimmomatic using $SLURM_NTASKS cores."
     echo "$0: Creating symlinks to datafiles."
     ln -s /rhome/arajewski/shared/genetree/sequencing/$PEfile1 PEreads1.fastq.gz
