@@ -1,0 +1,16 @@
+/var/spool/slurmd/job812549/slurm_script: Input files successfully located.
+/var/spool/slurmd/job812549/slurm_script: Removing old symlinks, just to be safe.
+/var/spool/slurmd/job812549/slurm_script: Loading required packages
+Trimmed Single-End Read File exists, skipping this step.
+/var/spool/slurmd/job812549/slurm_script: Trimming paired end read files with Trimmomatic using 16 cores.
+/var/spool/slurmd/job812549/slurm_script: Creating symlinks to datafiles.
+/var/spool/slurmd/job812549/slurm_script: Running Trimmomatic.
+TrimmomaticPE: Started with arguments:
+ -threads 16 -phred33 PEreads1.fastq.gz PEreads2.fastq.gz -baseout PEreadsTrimmed.fq.gz ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
+Using templated Output files: PEreadsTrimmed_1P.fq.gz PEreadsTrimmed_1U.fq.gz PEreadsTrimmed_2P.fq.gz PEreadsTrimmed_2U.fq.gz
+Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
+Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
+ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 20805561 Both Surviving: 20671612 (99.36%) Forward Only Surviving: 23911 (0.11%) Reverse Only Surviving: 109343 (0.53%) Dropped: 695 (0.00%)
+TrimmomaticPE: Completed successfully
+/var/spool/slurmd/job812549/slurm_script: Done.
