@@ -1,0 +1,11 @@
+/var/spool/slurmd/job814271/slurm_script [14:03:44]: Loading required packages.
+/var/spool/slurmd/job814271/slurm_script [14:03:44]: Running Trinity without trimming using  cores and 409600 memory.
+Left read files: $VAR1 = [
+          'AllreadsTrimmed_1P.fq.gz',
+          'AllreadsTrimmed_1U.fq.gz'
+        ];
+Right read files: $VAR1 = [
+          'AllreadsTrimmed_2P.fq.gz',
+          'AllreadsTrimmed_2U.fq.gz'
+        ];
+Error, cannot parse jellyfish_ram value of 409600MB.  Set it to 'xG' where x is a numerical value
