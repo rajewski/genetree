@@ -2,7 +2,7 @@
 #SBATCH --ntasks=16
 #SBATCH --nodes=1
 #SBATCH --mem=400G
-#SBATCH --time=06:00:00
+#SBATCH --time=10:00:00
 #SBATCH --mail-user=araje002@ucr.edu
 #SBATCH --mail-type=ALL
 
@@ -29,5 +29,5 @@ module load perl/5.22.0
 module load trinity-rnaseq
 
 echo "$0 [$(date +%T)]: Running Trinity without trimming using $SLURM_NTASKS_PER_NODE cores and $SLURM_MEM_PER_NODE memory."
-Trinity --seqType fq --max_memory $SLURM_MEM_PER_NODE --bflyCalculateCPU --left AllreadsTrimmed_1P.fq.gz,AllreadsTrimmed_1U.fq.gz --right AllreadsTrimmed_2P.fq.gz,AllreadsTrimmed_2U.fq.gz --SS_lib_type RF --CPU $SLURM_NTASKE --normalize_reads --output /rhome/arajewski/shared/genetree/trinity_output_fabiana_rerun
+Trinity --seqType fq --max_memory $SLURM_MEM_PER_NODE --bflyCalculateCPU --left AllreadsTrimmed_1P.fq.gz,AllreadsTrimmed_1U.fq.gz --right AllreadsTrimmed_2P.fq.gz,AllreadsTrimmed_2U.fq.gz --SS_lib_type RF --CPU $SLURM_NTASKS --normalize_reads --output /rhome/arajewski/shared/genetree/trinity_output_fabiana_rerun
 

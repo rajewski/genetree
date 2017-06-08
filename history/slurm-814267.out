@@ -1,0 +1,4 @@
+/var/spool/slurmd/job814267/slurm_script [13:35:44]: Renaming trimmed files for consistency.
+/var/spool/slurmd/job814267/slurm_script [13:35:44]: Loading required packages.
+/var/spool/slurmd/job814267/slurm_script [13:35:44]: Running Trinity without trimming using  cores and 409600 memory.
+Error, do not understand options: --CPU --normalize_reads --output /rhome/arajewski/shared/genetree/trinity_output_fabiana_rerun
