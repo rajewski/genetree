@@ -58,3 +58,6 @@ else
     echo "$0 [$(date +%T)]: Trimmed paired-end read files exist, skipping this step."
 fi
 
+#Combine the single-end reads into the 1st set of unpaired paired-end reads
+echo "$0 [$(date +%t)]: Appending single-end reads into the paired-end file." 
+cat PEreadsTrimmed_1U.fq.gz SEreadsTrimmed.fq.gz > AllreadsTrimmed_1U.fq.gz 

@@ -1,0 +1,5 @@
+/var/spool/slurmd/job812589/slurm_script [22:52:43]: Input files successfully located.
+/var/spool/slurmd/job812589/slurm_script [22:52:43]: Removing old symlinks, just to be safe.
+/var/spool/slurmd/job812589/slurm_script [22:52:43]: Loading required packages
+/var/spool/slurmd/job812589/slurm_script [22:52:43]: Trimmed Single-End Read File exists, skipping this step.
+/var/spool/slurmd/job812589/slurm_script [22:52:43: Trimmed paired-end read files exist, skipping this step.
