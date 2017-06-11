@@ -1,0 +1,10 @@
+Single read files: $VAR1 = [
+          'SEreadsTrimmed.fq.gz'
+        ];
+Trinity version: Trinity-v2.4.0
+-currently using the latest production release of Trinity.
+
+Saturday, June 10, 2017: 22:13:01	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 0
+Saturday, June 10, 2017: 22:13:01	CMD: java -Xmx64m -XX:ParallelGCThreads=2 -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/support_scripts/ExitTester.jar 1
+Error, cannot locate file: SEreadsTrimmed.fq.gz at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Trinity line 2429.
+	main::create_full_path(ARRAY(0x1076a48), 1) called at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/Trinity line 1161
