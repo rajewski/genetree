@@ -8,7 +8,7 @@
 
 PEfile1=flowcell608/flowcell608_lane1_pair1_TGACCA.fastq.gz
 PEfile2=flowcell608/flowcell608_lane1_pair2_TGACCA.fastq.gz
-SEfile=flowcell636/flowcell636_lane1_pair1_TGACCAfastq.gz
+SEfile=flowcell636/flowcell636_lane1_pair1_TGACCA.fastq.gz
 
 cd /rhome/arajewski/shared/genetree/results/Grabowskia/
 
