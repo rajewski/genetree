@@ -6,14 +6,14 @@
 #SBATCH --mail-user=araje002@ucr.edu
 #SBATCH --mail-type=ALL
 
-PEfile1=flowcell608/flowcell608_lane1_pair1_ACAGTG.fastq.gz
-PEfile2=flowcell608/flowcell608_lane1_pair2_ACAGTG.fastq.gz
-SEfile=flowcell636/flowcell636_lane1_pair1_ACAGTG.fastq.gz
+PEfile1=flowcell608/flowcell608_lane1_pair1_TGACCA.fastq.gz
+PEfile2=flowcell608/flowcell608_lane1_pair2_TGACCA.fastq.gz
+SEfile=flowcell636/flowcell636_lane1_pair1_TGACCAfastq.gz
 
-cd /rhome/arajewski/shared/genetree/analysis/
+cd /rhome/arajewski/shared/genetree/results/Grabowskia/
 
 #Check the input files exist
-if [ ! -e ../sequencing/$PEfile1 ] || [ ! -e ../sequencing/$PEfile2 ] || [ ! -e ../sequencing/$SEfile ]
+if [ ! -e ../../sequencing/$PEfile1 ] || [ ! -e ../../sequencing/$PEfile2 ] || [ ! -e ../../sequencing/$SEfile ]
 then
     echo "$0 [$(date +%T)]: One of more inputs do not exist. Please check the filenames."
     exit 1

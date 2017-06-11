@@ -12,4 +12,4 @@ module unload perl
 module load perl/5.22.0
 module load trinity-rnaseq
 
-Trinity --seqType fq --max_memory $((SLURM_MEM_PER_NODE/1000))'G' --bflyCalculateCPU --single SEreadsTrimmed.fq.gz --SS_lib_type R --CPU $SLURM_NTASKS --full_cleanup --normalize_reads --output /rhome/arajewski/shared/genetree/trinity_output_fabianaSEonly2
+Trinity --seqType fq --max_memory $((SLURM_MEM_PER_NODE/1000))'G' --bflyCalculateCPU --single SEreadsTrimmed.fq.gz --SS_lib_type R --CPU $SLURM_NTASKS --full_cleanup --normalize_reads --output /rhome/arajewski/shared/genetree/trinity_output_fabianaSEonly
