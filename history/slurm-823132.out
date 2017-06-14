@@ -1,0 +1,49 @@
+perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
+perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
+
+CMD: seqtk-trinity seq -A <(gunzip -c /bigdata/littlab/shared/genetree/analysis/../results/Fabiana/SEreadsTrimmed.fq.gz) >> single.fa
+CMD finished (308 seconds)
+CMD: touch single.fa.ok
+-------------------------------------------
+----------- Jellyfish  --------------------
+-- (building a k-mer catalog from reads) --
+-------------------------------------------
+
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish count -t 2 -m 25 -s 100000000  single.fa
+CMD finished (1602 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish histo -t 2 -o jellyfish.K25.min2.kmers.fa.histo mer_counts.jf
+CMD finished (35 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish dump -L 2 mer_counts.jf > jellyfish.K25.min2.kmers.fa
+CMD finished (76 seconds)
+CMD: touch jellyfish.K25.min2.kmers.fa.success
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//Inchworm/bin/fastaToKmerCoverageStats --reads single.fa --kmers jellyfish.K25.min2.kmers.fa --kmer_size 25  --num_threads 2  > single.fa.K25.stats
+-reading Kmer occurrences...
+
+ done parsing 193858867 Kmers, 182429205 added, taking 368 seconds.
+STATS_GENERATION_TIME: 6332 seconds.
+CMD finished (6729 seconds)
+CMD: touch single.fa.K25.stats.ok
+-sorting each stats file by read name.
+CMD finished (0 seconds)
+CMD: /usr/bin/sort --parallel=2 -k5,5 -T . -S 10G single.fa.K25.stats > single.fa.K25.stats.sort
+CMD finished (118 seconds)
+CMD: touch single.fa.K25.stats.sort.ok
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//util/support_scripts//nbkc_normalize.pl single.fa.K25.stats.sort 50 200 > single.fa.K25.stats.sort.C50.pctSD200.accs
+18904485 / 116763938 = 16.19% reads selected during normalization.
+1487924 / 116763938 = 1.27% reads discarded as likely aberrant based on coverage profiles.
+0 / 116763938 = 0.00% reads missing kmer coverage (N chars included?).
+CMD finished (263 seconds)
+CMD: touch single.fa.K25.stats.sort.C50.pctSD200.accs.ok
+CMD finished (0 seconds)
+CMD: touch /bigdata/littlab/shared/genetree/analysis/SEreadsTrimmed.fq.gz.normalized_K25_C50_pctSD200.fq.ok
+CMD finished (0 seconds)
+CMD: ln -sf /bigdata/littlab/shared/genetree/analysis/SEreadsTrimmed.fq.gz.normalized_K25_C50_pctSD200.fq single.norm.fq
+-removing tmp dir /bigdata/littlab/shared/genetree/analysis/tmp_normalized_reads
+CMD finished (0 seconds)
+
+
+Normalization complete. See outputs: 
+	/bigdata/littlab/shared/genetree/analysis/SEreadsTrimmed.fq.gz.normalized_K25_C50_pctSD200.fq

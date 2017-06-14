@@ -1,0 +1,2 @@
+/var/spool/slurmd/job820950/slurm_script: line 13: cd: /rhome/arajewski/shared/genetree/results/Dunalia/: No such file or directory
+/var/spool/slurmd/job820950/slurm_script [18:49:01]: One of more inputs do not exist. Please check the filenames.

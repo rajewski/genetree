@@ -1,0 +1,5 @@
+perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
+perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
+
+/var/spool/slurmd/job820929/slurm_script: line 13: cd: /rhome/arajewski/shared/genetree/results/Salpiglossis/: No such file or directory
+/var/spool/slurmd/job820929/slurm_script [15:42:30]: One of more inputs do not exist. Please check the filenames.

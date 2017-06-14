@@ -1,0 +1,30 @@
+perl/5.20.2(22):ERROR:150: Module 'perl/5.20.2' conflicts with the currently loaded module(s) 'perl/5.22.0'
+perl/5.20.2(22):ERROR:102: Tcl command execution failed: conflict        perl
+
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Input files successfully located.
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Removing old symlinks, just to be safe.
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Loading required packages
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Trimming Single-end read files with Trimmomatic using 16 cores.
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Creating symlinks to datafiles.
+/var/spool/slurmd/job820930/slurm_script [15:45:01]: Running Trimmomatic.
+TrimmomaticSE: Started with arguments:
+ -threads 16 -phred33 SEreads.fastq.gz SEreadsTrimmed.fq.gz ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
+Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
+Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
+ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Reads: 142417858 Surviving: 142334059 (99.94%) Dropped: 83799 (0.06%)
+TrimmomaticSE: Completed successfully
+/var/spool/slurmd/job820930/slurm_script [17:56:35]: Done.
+/var/spool/slurmd/job820930/slurm_script [17:56:35]: Trimming paired-end read files with Trimmomatic using 16 cores.
+/var/spool/slurmd/job820930/slurm_script [17:56:35]: Creating symlinks to datafiles.
+/var/spool/slurmd/job820930/slurm_script [17:56:35]: Running Trimmomatic.
+TrimmomaticPE: Started with arguments:
+ -threads 16 -phred33 PEreads1.fastq.gz PEreads2.fastq.gz -baseout PEreadsTrimmed.fq.gz ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
+Using templated Output files: PEreadsTrimmed_1P.fq.gz PEreadsTrimmed_1U.fq.gz PEreadsTrimmed_2P.fq.gz PEreadsTrimmed_2U.fq.gz
+Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
+Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
+ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 29431313 Both Surviving: 29183176 (99.16%) Forward Only Surviving: 33182 (0.11%) Reverse Only Surviving: 213878 (0.73%) Dropped: 1077 (0.00%)
+TrimmomaticPE: Completed successfully
+/var/spool/slurmd/job820930/slurm_script [18:09:34]: Done.
+/var/spool/slurmd/job820930/slurm_script [	]: Appending single-end reads into the paired-end file.
