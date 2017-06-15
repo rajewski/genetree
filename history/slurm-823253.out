@@ -1,0 +1,93 @@
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Input files successfully located.
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Loading required packages
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Trimmed Single-end Read File exists, skipping this step.
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Normalized read file detected, skipping this step.
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Trimmed paired-end read files exist, skipping this step.
+/var/spool/slurmd/job823253/slurm_script [17:19:42]: Performing in silico read normalization on paired-end trimmed reads
+mkdir: cannot create directory 'insilico_read_normalization': File exists
+Converting input files. (both directions in parallel)CMD: seqtk-trinity seq -r -A <(gunzip -c /bigdata/littlab/shared/genetree/results/Fabiana/PEreadsTrimmed_1P.fq.gz) >> left.fa
+CMD: seqtk-trinity seq -A <(gunzip -c /bigdata/littlab/shared/genetree/results/Fabiana/PEreadsTrimmed_2P.fq.gz) >> right.fa
+CMD finished (31 seconds)
+CMD: seqtk-trinity seq -r -A <(gunzip -c /bigdata/littlab/shared/genetree/results/Fabiana/PEreadsTrimmed_1U.fq.gz) >> left.fa
+CMD finished (0 seconds)
+CMD finished (31 seconds)
+CMD: seqtk-trinity seq -A <(gunzip -c /bigdata/littlab/shared/genetree/results/Fabiana/PEreadsTrimmed_2U.fq.gz) >> right.fa
+CMD finished (0 seconds)
+CMD: touch left.fa.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.ok
+CMD finished (0 seconds)
+Done converting input files.CMD: cat left.fa right.fa > both.fa
+CMD finished (4 seconds)
+CMD: touch both.fa.ok
+-------------------------------------------
+----------- Jellyfish  --------------------
+-- (building a k-mer catalog from reads) --
+-------------------------------------------
+
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish count -t 16 -m 25 -s 100000000  both.fa
+CMD finished (50 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish histo -t 16 -o jellyfish.K25.min2.kmers.fa.histo mer_counts.jf
+CMD finished (10 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//trinity-plugins/jellyfish/bin/jellyfish dump -L 2 mer_counts.jf > jellyfish.K25.min2.kmers.fa
+CMD finished (24 seconds)
+CMD: touch jellyfish.K25.min2.kmers.fa.success
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//Inchworm/bin/fastaToKmerCoverageStats --reads left.fa --kmers jellyfish.K25.min2.kmers.fa --kmer_size 25  --num_threads 16  > left.fa.K25.stats
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//Inchworm/bin/fastaToKmerCoverageStats --reads right.fa --kmers jellyfish.K25.min2.kmers.fa --kmer_size 25  --num_threads 16  > right.fa.K25.stats
+-reading Kmer occurrences...-reading Kmer occurrences...
+
+
+ done parsing 63187365 Kmers, 60229001 added, taking 79 seconds.
+
+ done parsing 63187365 Kmers, 60229001 added, taking 81 seconds.
+STATS_GENERATION_TIME: 199 seconds.
+STATS_GENERATION_TIME: 201 seconds.
+CMD finished (292 seconds)
+CMD finished (293 seconds)
+CMD: touch left.fa.K25.stats.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.K25.stats.ok
+-sorting each stats file by read name.
+CMD finished (0 seconds)
+CMD: /usr/bin/sort --parallel=16 -k5,5 -T . -S 25G left.fa.K25.stats > left.fa.K25.stats.sort
+CMD: /usr/bin/sort --parallel=16 -k5,5 -T . -S 25G right.fa.K25.stats > right.fa.K25.stats.sort
+CMD finished (11 seconds)
+CMD finished (11 seconds)
+CMD: touch left.fa.K25.stats.sort.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.K25.stats.sort.ok
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//util/support_scripts//nbkc_merge_left_right_stats.pl --left left.fa.K25.stats.sort --right right.fa.K25.stats.sort --sorted > pairs.K25.stats
+-opening left.fa.K25.stats.sort
+-opening right.fa.K25.stats.sort
+-done opening files.
+CMD finished (123 seconds)
+CMD: touch pairs.K25.stats.ok
+CMD finished (0 seconds)
+CMD: /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/..//util/support_scripts//nbkc_normalize.pl pairs.K25.stats 50 10000 > pairs.K25.stats.C50.pctSD10000.accs
+8815444 / 20671612 = 42.65% reads selected during normalization.
+0 / 20671612 = 0.00% reads discarded as likely aberrant based on coverage profiles.
+0 / 20671612 = 0.00% reads missing kmer coverage (N chars included?).
+CMD finished (34 seconds)
+CMD: touch pairs.K25.stats.C50.pctSD10000.accs.ok
+CMD finished (0 seconds)
+CMD: touch /bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_1P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq.ok
+CMD finished (0 seconds)
+CMD: touch /bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_2P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq.ok
+CMD finished (0 seconds)
+CMD: ln -sf /bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_1P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq left.norm.fq
+CMD finished (0 seconds)
+CMD: ln -sf /bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_2P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq right.norm.fq
+-removing tmp dir /bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/tmp_normalized_reads
+CMD finished (0 seconds)
+
+
+Normalization complete. See outputs: 
+	/bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_1P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq
+	/bigdata/littlab/shared/genetree/results/Fabiana/insilico_read_normalization/PEreadsTrimmed_2P.fq.gz_ext_all_reads.normalized_K25_C50_pctSD10000.fq
+/var/spool/slurmd/job823253/slurm_script [17:34:08]: Done.
+/var/spool/slurmd/job823253/slurm_script [17:34:08]: Appending single-end reads into the paired-end file.
+cat: left.norm.fa: No such file or directory
+cat: single.norm.fa: No such file or directory

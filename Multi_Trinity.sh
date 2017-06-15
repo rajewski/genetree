@@ -10,7 +10,7 @@
 
 cd /rhome/arajewski/shared/genetree/results/Fabiana/
 
-if [ ! -e combleft.norm.fq ] || [ ! -e right.norm.fq ]
+if [ ! -e insilico_read_normalization/combleft.norm.fq ] || [ ! -e insilico_read_normalization/right.norm.fq ]
 then
     echo "$0 [$(date +%T)]: Combined SE and PE file note found. Please run the Multi_Trimmomatic.sh script or check file names."
     exit 1
