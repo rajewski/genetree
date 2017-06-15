@@ -1,0 +1,20 @@
+/var/spool/slurmd/job823250/slurm_script [17:09:42]: Input files successfully located.
+/var/spool/slurmd/job823250/slurm_script [17:09:42]: Removing old symlinks, just to be safe.
+/var/spool/slurmd/job823250/slurm_script [17:09:48]: Loading required packages
+/var/spool/slurmd/job823250/slurm_script [17:09:48]: Trimmed Single-end Read File exists, skipping this step.
+/var/spool/slurmd/job823250/slurm_script [17:09:48]: Performing in silico read normalization on single-end trimmed reads
+mkdir: cannot create directory 'insilico_read_normalization': File exists
+/var/spool/slurmd/job823250/slurm_script: command substitution: line 51: syntax error near unexpected token `/1000'
+/var/spool/slurmd/job823250/slurm_script: command substitution: line 51: `(SLURM_MEM_PER_NODE)/1000'
+Error, must set --JM to number of G of RAM (ie. 10G)   at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/insilico_read_normalization.pl line 181.
+/var/spool/slurmd/job823250/slurm_script [17:09:49]: Done.
+/var/spool/slurmd/job823250/slurm_script [17:09:49]: Trimmed paired-end read files exist, skipping this step.
+/var/spool/slurmd/job823250/slurm_script [17:09:49]: Performing in silico read normalization on paired-end trimmed reads
+mkdir: cannot create directory 'insilico_read_normalization': File exists
+/var/spool/slurmd/job823250/slurm_script: command substitution: line 77: syntax error near unexpected token `/1000'
+/var/spool/slurmd/job823250/slurm_script: command substitution: line 77: `(SLURM_MEM_PER_NODE)/1000'
+Error, must set --JM to number of G of RAM (ie. 10G)   at /opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/util/insilico_read_normalization.pl line 181.
+/var/spool/slurmd/job823250/slurm_script [17:09:49]: Done.
+/var/spool/slurmd/job823250/slurm_script [	]: Appending single-end reads into the paired-end file.
+cat: left.norm.fa: No such file or directory
+cat: single.norm.fa: No such file or directory

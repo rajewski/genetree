@@ -19,8 +19,6 @@ then
     exit 1
 else 
     echo "$0 [$(date +%T)]: Input files successfully located."
-    echo "$0 [$(date +%T)]: Removing old symlinks, just to be safe."
-    find -type l -delete
 fi
 
 #Load required packages
@@ -82,5 +80,5 @@ else
 fi
 
 #Combine the single-end reads into the 1st set of unpaired paired-end reads
-echo "$0 [$(date +%t)]: Appending single-end reads into the paired-end file." 
+echo "$0 [$(date +%T)]: Appending single-end reads into the paired-end file." 
 cat left.norm.fa single.norm.fa > combinedleft.norm.fa 
