@@ -79,4 +79,4 @@ fi
 
 #Combine the single-end reads into the 1st set of unpaired paired-end reads
 echo "$0 [$(date +%T)]: Appending single-end reads into the paired-end file." 
-cat left.norm.fa single.norm.fa > combinedleft.norm.fa 
+cat left.norm.fq single.norm.fq > combinedleft.norm.fq 
