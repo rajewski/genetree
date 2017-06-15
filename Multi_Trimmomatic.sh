@@ -35,7 +35,6 @@ then
     ln -s /rhome/arajewski/shared/genetree/sequencing/$SEfile SEreads.fastq.gz
     echo "$0 [$(date +%T)]: Running Trimmomatic."
     java -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/trimmomatic.jar SE -threads $SLURM_NTASKS -phred33 SEreads.fastq.gz SEreadsTrimmed.fq.gz  ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
-    find -type l -delete
     echo "$0 [$(date +%T)]: Done."
 else
     echo "$0 [$(date +%T)]: Trimmed Single-end Read File exists, skipping this step."
@@ -44,9 +43,9 @@ fi
 #Do separate in silico normalization to prevent discarding unpaired data
 if [ ! -e insilico_read_normalization/single.norm.fq ]
 then
-    echo "$0 [$(date +%T)]: Performing in silico read normalization on single-end trimmed reads"
+    echo "$0 [$(date +%T)]: Performing in silico read normalization on single-end trimmed reads."
     mkdir insilico_read_normalization
-    insilico_read_normalization.pl --seqType fq --JM $((SLURM_MEM_PER_NODE)/1000)'G' --max_cov 50 --single ../SEreadsTrimmed.fq.gz --SS_lib_type R --CPU $SLURM_NTASKS --output insilico_read_normalization --max_pct_stdev 10000
+    insilico_read_normalization.pl --seqType fq --JM $((SLURM_MEM_PER_NODE/1000))'G' --max_cov 50 --single ../SEreadsTrimmed.fq.gz --SS_lib_type R --CPU $SLURM_NTASKS --output insilico_read_normalization --max_pct_stdev 10000
     echo "$0 [$(date +%T)]: Done."
 else
    echo "$0 [$(date +%T)]: Normalized read file detected, skipping this step."
@@ -61,7 +60,6 @@ then
     ln -s /rhome/arajewski/shared/genetree/sequencing/$PEfile2 PEreads2.fastq.gz
     echo "$0 [$(date +%T)]: Running Trimmomatic."
     java -jar /bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/trimmomatic.jar PE -threads $SLURM_NTASKS -phred33 PEreads1.fastq.gz PEreads2.fastq.gz -baseout PEreadsTrimmed.fq.gz  ILLUMINACLIP:/bigdata/bioinfo/pkgadmin/opt/linux/centos/7.x/x86_64/pkgs/trinity-rnaseq/2.4.0/trinity-plugins/Trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:5 LEADING:5 TRAILING:5 MINLEN:25
-    find -type l -delete
     echo "$0 [$(date +%T)]: Done."
 else
     echo "$0 [$(date +%T)]: Trimmed paired-end read files exist, skipping this step."
@@ -72,7 +70,7 @@ if [ ! -e insilico_read_normalization/right.norm.fq ] || [ ! -e insilico_read_no
 then
     echo "$0 [$(date +%T)]: Performing in silico read normalization on paired-end trimmed reads"
     mkdir insilico_read_normalization
-    insilico_read_normalization.pl --seqType fq --JM $((SLURM_MEM_PER_NODE)/1000)'G' --max_cov 50 --CPU $SLURM_NTASKS --output insilico_read_normalization   --max_pct_stdev 10000  --SS_lib_type RF  --left PEreadsTrimmed_1P.fq.gz,PEreadsTrimmed_1U.fq.gz --right PEreadsTrimmed_2P.fq.gz,PEreadsTrimmed_2U.fq.gz --pairs_together --PARALLEL_STATS
+    insilico_read_normalization.pl --seqType fq --JM $((SLURM_MEM_PER_NODE/1000))'G' --max_cov 50 --CPU $SLURM_NTASKS --output insilico_read_normalization   --max_pct_stdev 10000  --SS_lib_type RF  --left PEreadsTrimmed_1P.fq.gz,PEreadsTrimmed_1U.fq.gz --right PEreadsTrimmed_2P.fq.gz,PEreadsTrimmed_2U.fq.gz --pairs_together --PARALLEL_STATS
     echo "$0 [$(date +%T)]: Done."
 
 else
